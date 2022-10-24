@@ -1,6 +1,6 @@
 # ConnectFour
 An in-progress project aiming to recreate the classic gameplay of connect four on your device.
-Some sample UI is provided below:  
+- Some sample UI is provided below:  
 
 ![This is a screenshot.](images.png)
 # How to run
