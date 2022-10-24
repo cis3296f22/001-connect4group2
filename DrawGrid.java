@@ -44,7 +44,7 @@ public class DrawGrid {
             int x = 0;
             for (int row = 0; row < grid.length; row++) {
                 for (int col = 0; col < grid[0].length; col++) {
-                    grid[row][col]=new Color (255,255,255);
+                    grid[row][col]= Color.WHITE;
                 }
             }
         }
@@ -88,9 +88,19 @@ public class DrawGrid {
             int xSpot=x/cellWidth;
             int ySpot=y/cellWidth;
             if(turn%2==0){
-                grid[ySpot][xSpot]=new Color(255,0,0);
+                if(grid[ySpot][xSpot] == Color.WHITE) {
+                    grid[ySpot][xSpot] = new Color(255, 0, 0);
+                }
+                else{
+                    turn++;//skip this turn to redo
+                }
             }else{
-                grid[ySpot][xSpot]=new Color(255,255,0);
+                if(grid[ySpot][xSpot] == Color.WHITE) {
+                    grid[ySpot][xSpot]=new Color(255,255,0);
+                }
+                else{
+                    turn++;//skip this turn to redo
+                }
             }
             System.out.println(x + " " + xSpot + " " + y + " "+ ySpot);
             turn++;
