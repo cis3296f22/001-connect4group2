@@ -23,6 +23,7 @@ public class DrawGrid {
     }
 
     public static void main(String... argv) {
+        Board b = new Board(6,7);
         new DrawGrid();
     }
 
