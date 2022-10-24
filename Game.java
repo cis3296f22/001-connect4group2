@@ -41,8 +41,9 @@ public class Game {
     {
         return limit;
     }
-    public int checkIfWon()//0 means game isnt over, any other number means that player won
+    public int checkIfWon()//0 means game isn't over, any other number means that player won
     {
-
+        return -1;
+        // TODO
     }
 }
