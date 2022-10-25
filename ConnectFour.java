@@ -14,7 +14,7 @@ public class ConnectFour {
         Player b = new Player();  */
        // players[1].setToken(genToken());
         //System.out.println(players[0].getToken());
-        System.out.println("created players now");
+        System.out.println("Players have been created.");
 
 
         new DrawGrid(players);
