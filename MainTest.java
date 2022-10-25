@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class MainTest {
 
+    //Should be easier to create a class diagram with this code
 
     public static void main(String[] args)
     {
