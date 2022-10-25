@@ -5,15 +5,8 @@ An in-progress project aiming to recreate the classic gameplay of connect four o
 ![This is a screenshot.](images.png)
 # How to run
 Provide here instructions on how to use your application.   
-- Download the latest binary from the Release section on the right on GitHub.  
-- On the command line uncompress using
-```
-tar -xzf  
-```
-- On the command line run with
-```
-./hello
-```
+- Download the latest jar from the release section on github  
+- Run the .jar file you downloaded.
 - You will see Hello World! on your terminal. 
 
 # How to contribute
