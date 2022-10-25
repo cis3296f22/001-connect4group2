@@ -5,38 +5,44 @@ import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
 public class DrawGrid {
     private JFrame frame;
+    private Player[] p;
 
-    public DrawGrid() {
+    public DrawGrid(Player[] players) {
         frame = new JFrame("DrawGrid");
         frame.setSize(600, 400);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setPreferredSize(frame.getSize());
-        frame.add(new MultiDraw(frame.getSize()));
+        frame.add(new MultiDraw(frame.getSize(),players));
         frame.pack();
         frame.setVisible(true);
+        //
+        //p = players;
     }
 
-    public static void main(String... argv) {
-        new DrawGrid();
-    }
 
-    public static class MultiDraw extends JPanel  implements MouseListener {
+
+    public class MultiDraw extends JPanel  implements MouseListener {
         int startX = 10;
         int startY = 10;
         int cellWidth = 40;
-        int turn = 2;
+        int turn;
         int rows = 6;
         int cols = 7;
+        Player[] players;
 
         Color[][] grid = new Color[rows][cols];
 
-        public MultiDraw(Dimension dimension) {
+        public MultiDraw(Dimension dimension, Player[] PL) {
+
+            players = PL;
+            turn = players.length;
+
+
             setSize(dimension);
             setPreferredSize(dimension);
             addMouseListener(this);
@@ -73,9 +79,9 @@ public class DrawGrid {
             g2.setColor(new Color(255, 255, 255));
 
             if (turn % 2 == 0) {
-                g2.drawString("Red's Turn",400,20);
+                g2.drawString("Player_1's Turn",400,20);
             }else{
-                g2.drawString("Red's Turn",400,20);
+                g2.drawString("Player_2's Turn",400,20);
             }
 
 
@@ -89,14 +95,16 @@ public class DrawGrid {
             int ySpot=y/cellWidth;
             if(turn%2==0){
                 if(grid[ySpot][xSpot] == Color.WHITE) {
-                    grid[ySpot][xSpot] = new Color(255, 0, 0);
+                   // grid[ySpot][xSpot] = new Color(255, 0, 0);
+                    grid[ySpot][xSpot] = players[turn%2].getToken();
                 }
                 else{
                     turn++;//skip this turn to redo
                 }
             }else{
                 if(grid[ySpot][xSpot] == Color.WHITE) {
-                    grid[ySpot][xSpot]=new Color(255,255,0);
+                    //grid[ySpot][xSpot]=new Color(255,255,0);
+                    grid[ySpot][xSpot] = players[turn%2].getToken();
                 }
                 else{
                     turn++;//skip this turn to redo
