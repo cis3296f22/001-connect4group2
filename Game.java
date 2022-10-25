@@ -5,7 +5,7 @@ public class Game {
     private ArrayList<Player> p;
     private int turn = 0;
     private int limit = 0;
-
+    private int win;
     public Game(int w, int h, ArrayList<Player> p) {
         this.limit = w * h;
         this.board = new Board(w, h);
@@ -30,7 +30,12 @@ public class Game {
         while(getTurn() < getLimit())
         {
             nextTurn();
+            if((win = checkIfWon())!=0)
+            {
+                break;
+            }
         }
+        System.out.println("Player "+win+" has won!");
     }
     //g/s
     public int getTurn()
@@ -43,7 +48,6 @@ public class Game {
     }
     public int checkIfWon()//0 means game isn't over, any other number means that player won
     {
-        return -1;
-        // TODO
+        return board.checkIfWon();
     }
 }

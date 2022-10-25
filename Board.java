@@ -47,6 +47,48 @@ public class Board {
             System.out.println();
         }
     }
+    //https://codereview.stackexchange.com/questions/127091/java-connect-four-four-in-a-row-detection-algorithms
+    public int checkIfWon()
+    {
+        int HEIGHT = this.h;
+        int WIDTH = this.w;
+        int EMPTY_SLOT = 0;
+        for (int r = 0; r < HEIGHT; r++) { // iterate rows, bottom to top
+            for (int c = 0; c < WIDTH; c++) { // iterate columns, left to right
+                int player = board[r][c];
+                if (player == EMPTY_SLOT)
+                    continue; // don't check empty slots
+
+                if (c + 3 < WIDTH &&
+                        player == board[r][c+1] && // look right
+                        player == board[r][c+2] &&
+                        player == board[r][c+3])
+                    return player;
+                if (r + 3 < HEIGHT) {
+                    if (player == board[r+1][c] && // look up
+                            player == board[r+2][c] &&
+                            player == board[r+3][c])
+                        return player;
+                    if (c + 3 < WIDTH &&
+                            player == board[r+1][c+1] && // look up & right
+                            player == board[r+2][c+2] &&
+                            player == board[r+3][c+3])
+                        return player;
+                    if (c - 3 >= 0 &&
+                            player == board[r+1][c-1] && // look up & left
+                            player == board[r+2][c-2] &&
+                            player == board[r+3][c-3])
+                        return player;
+                }
+            }
+        }
+        return EMPTY_SLOT;
+    }
+    private boolean checkIfWonHorizontal(int player)
+    {
+
+        return false;
+    }
     public int getW()
     {
         return this.w;
