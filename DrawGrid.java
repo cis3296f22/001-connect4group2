@@ -38,7 +38,7 @@ public class DrawGrid {
         public MultiDraw(Dimension dimension, Player[] PL) {
 
             players = PL;
-            turn = 0;
+            turn = players.length;
 
 
             setSize(dimension);
