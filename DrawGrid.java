@@ -7,6 +7,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class DrawGrid {
     private JFrame frame;
@@ -105,6 +107,26 @@ public class DrawGrid {
 
         public void mouseReleased(MouseEvent e) {
 
+//            int x = e.getX();
+//            int y = e.getY();
+//            int xSpot=x/cellWidth;
+//            int ySpot= 0;
+//            int numPlayers = players.length;
+//
+//            boolean ai = true;
+//            if(ai)
+//            {
+//                try {
+//                    TimeUnit.SECONDS.sleep(1);
+//                } catch (InterruptedException ie) {
+//                    throw new RuntimeException(ie);
+//                }
+//                turn = generateAIMove(turn, numPlayers);
+//            }
+//
+//            turn++;
+//            repaint();
+
         }
 
         public void mouseEntered(MouseEvent e) {
@@ -122,6 +144,26 @@ public class DrawGrid {
         public int generatePlayerMove(int ySpot, int xSpot, int turn, int numPlayers) {
 
             ySpot = 0;
+            while ((grid[ySpot][xSpot] == Color.WHITE) && (ySpot < rows - 1)) {
+                ySpot++;
+            }
+            if (grid[ySpot][xSpot] == Color.WHITE) {
+                grid[ySpot][xSpot] = players[turn % numPlayers].getToken();
+            } else if (ySpot - 1 >= 0 && grid[ySpot - 1][xSpot] == Color.WHITE) {
+                grid[ySpot - 1][xSpot] = players[turn % numPlayers].getToken();
+            } else {
+                turn--;
+            }
+
+            return turn;
+
+        }
+
+        public int generateAIMove(int turn, int numPlayers) {
+
+            int ySpot = 0;
+            Random rand = new Random();
+            int xSpot = rand.nextInt(cols);
             while ((grid[ySpot][xSpot] == Color.WHITE) && (ySpot < rows - 1)) {
                 ySpot++;
             }
