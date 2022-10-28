@@ -12,8 +12,6 @@ public class Player {
     public Player(Color t){
         token = t;
     }
-
-
     public Color getToken(){
         return token;
     }

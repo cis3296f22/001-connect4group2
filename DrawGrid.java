@@ -77,11 +77,17 @@ public class DrawGrid {
             }
 
             g2.setColor(new Color(255, 255, 255));
+            String s = "Turns: " + (turn-2);
+            g2.drawString(s,cellWidth * (1 + cols), 20);
 
             if (turn % 2 == 0) {
-                g2.drawString("Player_1's Turn",400,20);
+                g2.drawString("Player_1's Turn",cellWidth * (1 + cols), 30);
+                g2.setColor(players[turn%2].getToken());
+                g2.fillOval(cellWidth * (1 + cols),40,cellWidth,cellWidth);
             }else{
-                g2.drawString("Player_2's Turn",400,20);
+                g2.drawString("Player_2's Turn",cellWidth * (1 + cols), 30);
+                g2.setColor(players[turn%2].getToken());
+                g2.fillOval(cellWidth * (1 + cols), 40,cellWidth,cellWidth);
             }
 
 
@@ -94,21 +100,37 @@ public class DrawGrid {
             int xSpot=x/cellWidth;
             int ySpot=y/cellWidth;
             if(turn%2==0){
+                while((grid[ySpot][xSpot] == Color.WHITE) && (ySpot < rows-1))
+                {
+                    ySpot++;
+                    System.out.println(ySpot);
+                }
                 if(grid[ySpot][xSpot] == Color.WHITE) {
-                   // grid[ySpot][xSpot] = new Color(255, 0, 0);
                     grid[ySpot][xSpot] = players[turn%2].getToken();
                 }
-                else{
-                    turn++;//skip this turn to redo
+                else if(ySpot-1 >= 0) {
+                    grid[ySpot-1][xSpot] = players[turn%2].getToken();
                 }
+                else {
+                    turn--;//skip this turn to redo
+                }
+
             }else{
+                while((grid[ySpot][xSpot] == Color.WHITE) && (ySpot < rows-1))
+                {
+                    ySpot++;
+                    System.out.println(ySpot);
+                }
                 if(grid[ySpot][xSpot] == Color.WHITE) {
-                    //grid[ySpot][xSpot]=new Color(255,255,0);
                     grid[ySpot][xSpot] = players[turn%2].getToken();
                 }
-                else{
-                    turn++;//skip this turn to redo
+                else if(ySpot-1 >= 0) {
+                    grid[ySpot-1][xSpot] = players[turn%2].getToken();
                 }
+                else {
+                    turn--;//skip this turn to redo
+                }
+
             }
             System.out.println(x + " " + xSpot + " " + y + " "+ ySpot);
             turn++;

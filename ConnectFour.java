@@ -16,11 +16,7 @@ public class ConnectFour {
         //System.out.println(players[0].getToken());
         System.out.println("Players have been created.");
 
-
         new DrawGrid(players);
-
-
-
 
 
     }
@@ -31,6 +27,7 @@ public class ConnectFour {
             p[i] = new Player(genToken());
         }
     }
+
     public static Color genToken(){
         Random rand = new Random();
         float r = rand.nextFloat();
