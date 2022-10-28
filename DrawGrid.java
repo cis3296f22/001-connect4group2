@@ -13,6 +13,8 @@ import java.util.concurrent.TimeUnit;
 public class DrawGrid {
     private JFrame frame;
     private Player[] p;
+    private boolean ai;
+    private boolean moveSuccessful = true;
 
     public DrawGrid(Player[] players) {
         frame = new JFrame("DrawGrid");
@@ -81,8 +83,6 @@ public class DrawGrid {
             g2.drawString(s,cellWidth * (1 + cols), 20);
 
             int numPlayers = players.length;
-
-
             g2.drawString("Player_" + (turn%numPlayers + 1) + "'s Turn",cellWidth * (1 + cols), 30);
             g2.setColor(players[turn%numPlayers].getToken());
             g2.fillOval(cellWidth * (1 + cols),40,cellWidth,cellWidth);
@@ -98,34 +98,55 @@ public class DrawGrid {
             int ySpot= 0;
             int numPlayers = players.length;
 
-            turn = generatePlayerMove(ySpot, xSpot, turn, numPlayers);
+            int temp = turn;
+
+            try
+            {
+                turn = generatePlayerMove(ySpot, xSpot, turn, numPlayers);
+                moveSuccessful = true;
+                //move fails
+                if(temp != turn)
+                {
+                    moveSuccessful = false;
+                }
+            }
+            catch (ArrayIndexOutOfBoundsException ae)
+            {
+                //move fails
+                moveSuccessful = false;
+                turn--;
+            }
 
             System.out.println(x + " " + xSpot + " " + y + " "+ ySpot);
             turn++;
             repaint();
+
         }
 
         public void mouseReleased(MouseEvent e) {
 
-//            int x = e.getX();
-//            int y = e.getY();
-//            int xSpot=x/cellWidth;
-//            int ySpot= 0;
-//            int numPlayers = players.length;
-//
-//            boolean ai = true;
-//            if(ai)
-//            {
-//                try {
-//                    TimeUnit.SECONDS.sleep(1);
-//                } catch (InterruptedException ie) {
-//                    throw new RuntimeException(ie);
-//                }
-//                turn = generateAIMove(turn, numPlayers);
-//            }
-//
-//            turn++;
-//            repaint();
+            if(moveSuccessful)
+            {
+                int x = e.getX();
+                int y = e.getY();
+                int xSpot=x/cellWidth;
+                int ySpot= 0;
+                int numPlayers = players.length;
+
+                ai = true;
+                if(ai)
+                {
+                    try {
+                        TimeUnit.SECONDS.sleep(1);
+                    } catch (InterruptedException ie) {
+                        throw new RuntimeException(ie);
+                    }
+                    turn = generateAIMove(turn, numPlayers);
+                }
+
+                turn++;
+                repaint();
+            }
 
         }
 
