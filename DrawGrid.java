@@ -20,8 +20,6 @@ public class DrawGrid {
         frame.add(new MultiDraw(frame.getSize(),players));
         frame.pack();
         frame.setVisible(true);
-        //
-        //p = players;
     }
 
 
@@ -98,7 +96,7 @@ public class DrawGrid {
             int x = e.getX();
             int y = e.getY();
             int xSpot=x/cellWidth;
-            int ySpot=y/cellWidth;
+            int ySpot= 0;
             if(turn%2==0){
                 while((grid[ySpot][xSpot] == Color.WHITE) && (ySpot < rows-1))
                 {
@@ -108,7 +106,7 @@ public class DrawGrid {
                 if(grid[ySpot][xSpot] == Color.WHITE) {
                     grid[ySpot][xSpot] = players[turn%2].getToken();
                 }
-                else if(ySpot-1 >= 0) {
+                else if(ySpot-1 >= 0 && grid[ySpot-1][xSpot] == Color.WHITE) {
                     grid[ySpot-1][xSpot] = players[turn%2].getToken();
                 }
                 else {
@@ -124,7 +122,7 @@ public class DrawGrid {
                 if(grid[ySpot][xSpot] == Color.WHITE) {
                     grid[ySpot][xSpot] = players[turn%2].getToken();
                 }
-                else if(ySpot-1 >= 0) {
+                else if(ySpot-1 >= 0 && grid[ySpot-1][xSpot] == Color.WHITE) {
                     grid[ySpot-1][xSpot] = players[turn%2].getToken();
                 }
                 else {
