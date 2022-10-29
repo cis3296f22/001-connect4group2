@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class DrawGrid {
     private JFrame frame;
     private Player[] p;
-    private boolean ai;
+    private boolean ai = true;
     private boolean moveSuccessful = true;
 
     public DrawGrid(Player[] players) {
@@ -83,7 +83,25 @@ public class DrawGrid {
             g2.drawString(s,cellWidth * (1 + cols), 20);
 
             int numPlayers = players.length;
-            g2.drawString("Player_" + (turn%numPlayers + 1) + "'s Turn",cellWidth * (1 + cols), 30);
+            //no AI
+            if(!ai)
+            {
+                g2.drawString("Player_" + (turn%numPlayers + 1) + "'s Turn",cellWidth * (1 + cols), 30);
+            }
+            //there is an AI
+            else
+            {
+                //player
+                if(turn%numPlayers != numPlayers-1)
+                {
+                    g2.drawString("Player_" + (turn%numPlayers + 1) + "'s Turn",cellWidth * (1 + cols), 30);
+                }
+                else
+                {
+                    g2.drawString("AI_" + (turn%numPlayers) + "'s Turn",cellWidth * (1 + cols), 30);
+                }
+
+            }
             g2.setColor(players[turn%numPlayers].getToken());
             g2.fillOval(cellWidth * (1 + cols),40,cellWidth,cellWidth);
 
@@ -133,7 +151,6 @@ public class DrawGrid {
                 int ySpot= 0;
                 int numPlayers = players.length;
 
-                ai = true;
                 if(ai)
                 {
                     try {
