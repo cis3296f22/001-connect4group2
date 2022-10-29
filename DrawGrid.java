@@ -20,8 +20,6 @@ public class DrawGrid {
         frame.add(new MultiDraw(frame.getSize(),players));
         frame.pack();
         frame.setVisible(true);
-        //
-        //p = players;
     }
 
 
@@ -77,12 +75,15 @@ public class DrawGrid {
             }
 
             g2.setColor(new Color(255, 255, 255));
+            String s = "Turns: " + (turn-2);
+            g2.drawString(s,cellWidth * (1 + cols), 20);
 
-            if (turn % 2 == 0) {
-                g2.drawString("Player_1's Turn",400,20);
-            }else{
-                g2.drawString("Player_2's Turn",400,20);
-            }
+            int numPlayers = players.length;
+
+
+            g2.drawString("Player_" + (turn%numPlayers + 1) + "'s Turn",cellWidth * (1 + cols), 30);
+            g2.setColor(players[turn%numPlayers].getToken());
+            g2.fillOval(cellWidth * (1 + cols),40,cellWidth,cellWidth);
 
 
         }
@@ -92,24 +93,11 @@ public class DrawGrid {
             int x = e.getX();
             int y = e.getY();
             int xSpot=x/cellWidth;
-            int ySpot=y/cellWidth;
-            if(turn%2==0){
-                if(grid[ySpot][xSpot] == Color.WHITE) {
-                   // grid[ySpot][xSpot] = new Color(255, 0, 0);
-                    grid[ySpot][xSpot] = players[turn%2].getToken();
-                }
-                else{
-                    turn++;//skip this turn to redo
-                }
-            }else{
-                if(grid[ySpot][xSpot] == Color.WHITE) {
-                    //grid[ySpot][xSpot]=new Color(255,255,0);
-                    grid[ySpot][xSpot] = players[turn%2].getToken();
-                }
-                else{
-                    turn++;//skip this turn to redo
-                }
-            }
+            int ySpot= 0;
+            int numPlayers = players.length;
+
+            turn = generatePlayerMove(ySpot, xSpot, turn, numPlayers);
+
             System.out.println(x + " " + xSpot + " " + y + " "+ ySpot);
             turn++;
             repaint();
@@ -130,5 +118,24 @@ public class DrawGrid {
         public void mouseClicked(MouseEvent e) {
 
         }
+
+        public int generatePlayerMove(int ySpot, int xSpot, int turn, int numPlayers) {
+
+            ySpot = 0;
+            while ((grid[ySpot][xSpot] == Color.WHITE) && (ySpot < rows - 1)) {
+                ySpot++;
+            }
+            if (grid[ySpot][xSpot] == Color.WHITE) {
+                grid[ySpot][xSpot] = players[turn % numPlayers].getToken();
+            } else if (ySpot - 1 >= 0 && grid[ySpot - 1][xSpot] == Color.WHITE) {
+                grid[ySpot - 1][xSpot] = players[turn % numPlayers].getToken();
+            } else {
+                turn--;
+            }
+
+            return turn;
+
+        }
+
     }
 }
