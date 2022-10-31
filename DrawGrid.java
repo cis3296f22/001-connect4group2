@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 public class DrawGrid {
     private JFrame frame;
     private Player[] p;
+    private static boolean didNotMove;
 
     public DrawGrid(Player[] players) {
         frame = new JFrame("DrawGrid");
@@ -21,7 +22,6 @@ public class DrawGrid {
         frame.pack();
         frame.setVisible(true);
     }
-
 
 
     public class MultiDraw extends JPanel  implements MouseListener {
@@ -85,6 +85,8 @@ public class DrawGrid {
             g2.setColor(players[turn%numPlayers].getToken());
             g2.fillOval(cellWidth * (1 + cols),40,cellWidth,cellWidth);
 
+            g2.setColor(Color.RED);
+            g2.drawString("ERROR MESSAGES ",320, 100);
 
         }
 
@@ -129,8 +131,10 @@ public class DrawGrid {
                 grid[ySpot][xSpot] = players[turn % numPlayers].getToken();
             } else if (ySpot - 1 >= 0 && grid[ySpot - 1][xSpot] == Color.WHITE) {
                 grid[ySpot - 1][xSpot] = players[turn % numPlayers].getToken();
-            } else {
+            } else
+            { //move did not work
                 turn--;
+
             }
 
             return turn;
