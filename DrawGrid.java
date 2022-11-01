@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class DrawGrid {
     private JFrame frame;
     private Player[] p;
-    private boolean ai = true;
+    private boolean ai = false;
     private boolean moveSuccessful = true;
 
     public DrawGrid(Player[] players) {
@@ -105,6 +105,12 @@ public class DrawGrid {
             g2.setColor(players[turn%numPlayers].getToken());
             g2.fillOval(cellWidth * (1 + cols),40,cellWidth,cellWidth);
 
+            if(moveSuccessful == false)
+            {
+                g2.setColor(Color.RED);
+                g2.drawString("Move was not successful please redo the move", cellWidth * (1 + cols), 50+cellWidth);
+            }
+
 
         }
 
@@ -143,27 +149,27 @@ public class DrawGrid {
 
         public void mouseReleased(MouseEvent e) {
 
-            if(moveSuccessful)
-            {
-                int x = e.getX();
-                int y = e.getY();
-                int xSpot=x/cellWidth;
-                int ySpot= 0;
-                int numPlayers = players.length;
-
-                if(ai)
-                {
-                    try {
-                        TimeUnit.SECONDS.sleep(1);
-                    } catch (InterruptedException ie) {
-                        throw new RuntimeException(ie);
-                    }
-                    turn = generateAIMove(turn, numPlayers);
-                }
-
-                turn++;
-                repaint();
-            }
+//            if(moveSuccessful)
+//            {
+//                int x = e.getX();
+//                int y = e.getY();
+//                int xSpot=x/cellWidth;
+//                int ySpot= 0;
+//                int numPlayers = players.length;
+//
+//                if(ai)
+//                {
+//                    try {
+//                        TimeUnit.SECONDS.sleep(1);
+//                    } catch (InterruptedException ie) {
+//                        throw new RuntimeException(ie);
+//                    }
+//                    turn = generateAIMove(turn, numPlayers);
+//                }
+//
+//                turn++;
+//                repaint();
+//            }
 
         }
 
