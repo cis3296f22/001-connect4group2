@@ -12,6 +12,7 @@ public class DrawGrid {
     private JFrame frame;
     private Player[] p;
     private static boolean didNotMove;
+    private boolean moveSuccessful = true;
 
     public DrawGrid(Player[] players) {
         frame = new JFrame("DrawGrid");
@@ -84,10 +85,11 @@ public class DrawGrid {
             g2.drawString("Player_" + (turn%numPlayers + 1) + "'s Turn",cellWidth * (1 + cols), 30);
             g2.setColor(players[turn%numPlayers].getToken());
             g2.fillOval(cellWidth * (1 + cols),40,cellWidth,cellWidth);
-
-            g2.setColor(Color.RED);
-            g2.drawString("ERROR MESSAGES ",320, 100);
-
+            if(moveSuccessful == false)
+            {
+                g2.setColor(Color.RED);
+                g2.drawString("Move was not successful please redo the move", cellWidth * (1 + cols), 50+cellWidth);
+            }
         }
 
         public void mousePressed(MouseEvent e) {
@@ -97,13 +99,20 @@ public class DrawGrid {
             int xSpot=x/cellWidth;
             int ySpot= 0;
             int numPlayers = players.length;
+             int temp = turn;
 
             turn = generatePlayerMove(ySpot, xSpot, turn, numPlayers);
-
+            moveSuccessful = true;
+            if (temp !=turn)
+            {
+                moveSuccessful = false;
+            }
             System.out.println(x + " " + xSpot + " " + y + " "+ ySpot);
             turn++;
             repaint();
+
         }
+
 
         public void mouseReleased(MouseEvent e) {
 
@@ -121,6 +130,9 @@ public class DrawGrid {
 
         }
 
+        /*
+
+         */
         public int generatePlayerMove(int ySpot, int xSpot, int turn, int numPlayers) {
 
             ySpot = 0;
@@ -132,9 +144,10 @@ public class DrawGrid {
             } else if (ySpot - 1 >= 0 && grid[ySpot - 1][xSpot] == Color.WHITE) {
                 grid[ySpot - 1][xSpot] = players[turn % numPlayers].getToken();
             } else
-            { //move did not work
+            {  // that row is full
+               // System.err.println("This column is full, please choose another.");
+               // return -1;
                 turn--;
-
             }
 
             return turn;
