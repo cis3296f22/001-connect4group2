@@ -8,7 +8,7 @@ public class DrawMenu {
 
     JFrame frame;
     int mode;       // 1 => pvp,  2 => player vs ai
-
+//    int a;
 
     // x : number of pixels from left of the screen
     // y : number of pixels from top of the screen
