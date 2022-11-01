@@ -5,11 +5,12 @@ public class ConnectFour {
 
     //default numPlayers
     public static int numPlayers = 2;
+
     public static void main(String[] args) throws Exception {
 
         // get number of players   ~  should get from user
         Player[] players = new Player[numPlayers];
-        setPlayers(players);
+           setPlayers(players);
 
 /*
         Player a = new Player();

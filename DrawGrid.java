@@ -113,7 +113,6 @@ public class DrawGrid {
 
         }
 
-
         public void mouseReleased(MouseEvent e) {
 
         }
@@ -153,6 +152,39 @@ public class DrawGrid {
             return turn;
 
         }
+        public Color checkIfWon()
+        {
+            Color EMPTY_SLOT = Color.WHITE;
+            for (int r = 0; r < rows; r++) { // iterate rows, bottom to top
+                for (int c = 0; c < cols; c++) { // iterate columns, left to right
+                    Color player = grid[r][c];
+                    if (player == EMPTY_SLOT)
+                        continue; // don't check empty slots
 
+                    if (c + 3 < cols &&
+                            player == grid[r][c+1] && // look right
+                            player == grid[r][c+2] &&
+                            player == grid[r][c+3])
+                        return player;
+                    if (r + 3 < cols) {
+                        if (player == grid[r+1][c] && // look up
+                                player == grid[r+2][c] &&
+                                player == grid[r+3][c])
+                            return player;
+                        if (c + 3 < cols &&
+                                player == grid[r+1][c+1] && // look up & right
+                                player == grid[r+2][c+2] &&
+                                player == grid[r+3][c+3])
+                            return player;
+                        if (c - 3 >= 0 &&
+                                player == grid[r+1][c-1] && // look up & left
+                                player == grid[r+2][c-2] &&
+                                player == grid[r+3][c-3])
+                            return player;
+                    }
+                }
+            }
+            return EMPTY_SLOT;
+        }
     }
 }
