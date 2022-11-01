@@ -14,15 +14,16 @@ public class DrawGrid {
     private static boolean didNotMove;
     private boolean moveSuccessful = true;
 
-    public DrawGrid(Player[] players) {
+    public DrawGrid(Player[] players, LayoutDetails ld) {
         frame = new JFrame("DrawGrid");
-        frame.setSize(600, 400);
+        frame.setBounds(ld.getX(),ld.getY(),ld.getWidth(), ld.getHeight());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setPreferredSize(frame.getSize());
         frame.add(new MultiDraw(frame.getSize(),players));
         frame.pack();
         frame.setVisible(true);
     }
+
 
 
     public class MultiDraw extends JPanel  implements MouseListener {
@@ -85,11 +86,13 @@ public class DrawGrid {
             g2.drawString("Player_" + (turn%numPlayers + 1) + "'s Turn",cellWidth * (1 + cols), 30);
             g2.setColor(players[turn%numPlayers].getToken());
             g2.fillOval(cellWidth * (1 + cols),40,cellWidth,cellWidth);
+
             if(moveSuccessful == false)
             {
                 g2.setColor(Color.RED);
                 g2.drawString("Move was not successful please redo the move", cellWidth * (1 + cols), 50+cellWidth);
             }
+
         }
 
         public void mousePressed(MouseEvent e) {
@@ -99,20 +102,21 @@ public class DrawGrid {
             int xSpot=x/cellWidth;
             int ySpot= 0;
             int numPlayers = players.length;
-             int temp = turn;
+
+            int temp = turn;
 
             turn = generatePlayerMove(ySpot, xSpot, turn, numPlayers);
             moveSuccessful = true;
-            if (temp !=turn)
+
+            if(temp != turn)
             {
                 moveSuccessful = false;
             }
+
             System.out.println(x + " " + xSpot + " " + y + " "+ ySpot);
             turn++;
             repaint();
-
         }
-
 
         public void mouseReleased(MouseEvent e) {
 
@@ -130,9 +134,6 @@ public class DrawGrid {
 
         }
 
-        /*
-
-         */
         public int generatePlayerMove(int ySpot, int xSpot, int turn, int numPlayers) {
 
             ySpot = 0;
@@ -144,9 +145,7 @@ public class DrawGrid {
             } else if (ySpot - 1 >= 0 && grid[ySpot - 1][xSpot] == Color.WHITE) {
                 grid[ySpot - 1][xSpot] = players[turn % numPlayers].getToken();
             } else
-            {  // that row is full
-               // System.err.println("This column is full, please choose another.");
-               // return -1;
+            { //move did not work
                 turn--;
             }
 
