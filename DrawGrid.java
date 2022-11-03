@@ -12,16 +12,18 @@ public class DrawGrid {
     private JFrame frame;
     private Player[] p;
     private static boolean didNotMove;
+    private boolean moveSuccessful = true;
 
-    public DrawGrid(Player[] players) {
+    public DrawGrid(Player[] players, LayoutDetails ld) {
         frame = new JFrame("DrawGrid");
-        frame.setSize(600, 400);
+        frame.setBounds(ld.getX(),ld.getY(),ld.getWidth(), ld.getHeight());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setPreferredSize(frame.getSize());
         frame.add(new MultiDraw(frame.getSize(),players));
         frame.pack();
         frame.setVisible(true);
     }
+
 
 
     public class MultiDraw extends JPanel  implements MouseListener {
@@ -85,8 +87,11 @@ public class DrawGrid {
             g2.setColor(players[turn%numPlayers].getToken());
             g2.fillOval(cellWidth * (1 + cols),40,cellWidth,cellWidth);
 
-            g2.setColor(Color.RED);
-            g2.drawString("ERROR MESSAGES ",320, 100);
+            if(moveSuccessful == false)
+            {
+                g2.setColor(Color.RED);
+                g2.drawString("Move was not successful please redo the move", cellWidth * (1 + cols), 50+cellWidth);
+            }
 
         }
 
@@ -98,7 +103,15 @@ public class DrawGrid {
             int ySpot= 0;
             int numPlayers = players.length;
 
+            int temp = turn;
+
             turn = generatePlayerMove(ySpot, xSpot, turn, numPlayers);
+            moveSuccessful = true;
+
+            if(temp != turn)
+            {
+                moveSuccessful = false;
+            }
 
             System.out.println(x + " " + xSpot + " " + y + " "+ ySpot);
             turn++;
@@ -134,7 +147,6 @@ public class DrawGrid {
             } else
             { //move did not work
                 turn--;
-
             }
 
             return turn;
