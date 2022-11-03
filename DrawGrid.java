@@ -10,7 +10,6 @@ import java.awt.event.MouseEvent;
 
 public class DrawGrid {
     private JFrame frame;
-    private Player[] p;
     private static boolean didNotMove;
     private boolean moveSuccessful = true;
 
