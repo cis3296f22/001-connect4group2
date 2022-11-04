@@ -77,9 +77,7 @@ public class DrawMenu{
         label.add(pvp);
         label.add(Box.createRigidArea(new Dimension(0,20)));
         label.add(pvai);
-
-       // RoundButton rButton = new RoundButton("R");
-       // label.add(rButton);
+        
 
 
     }
