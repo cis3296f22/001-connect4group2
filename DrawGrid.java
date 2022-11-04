@@ -4,11 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class DrawGrid {
     private JFrame frame;
     private static boolean didNotMove;
     private boolean moveSuccessful = true;
+    private boolean ai = false;
     private JPanel board;
     private Dimension boardSize;
 
@@ -153,6 +156,37 @@ public class DrawGrid {
 
         public void mouseReleased(MouseEvent e) {
 
+            if(ai)
+            {
+                if(moveSuccessful)
+                {
+                    int x = e.getX();
+                    int y = e.getY();
+                    int xSpot=x/cellWidth;
+                    int ySpot= 0;
+                    int numPlayers = players.length;
+                    int temp = turn;
+
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(500);
+                    } catch (InterruptedException ie) {
+                        throw new RuntimeException(ie);
+                    }
+
+
+                    turn = generateAIMove(turn, numPlayers);
+                    //move failed, then redo
+                    while(temp != turn)
+                    {
+                        turn = generateAIMove(temp, numPlayers);
+                    }
+
+
+                    turn++;
+                    repaint();
+                }
+            }
+
         }
 
         public void mouseEntered(MouseEvent e) {
@@ -177,8 +211,27 @@ public class DrawGrid {
                 grid[ySpot][xSpot] = players[turn % numPlayers].getToken();
             } else if (ySpot - 1 >= 0 && grid[ySpot - 1][xSpot] == Color.WHITE) {
                 grid[ySpot - 1][xSpot] = players[turn % numPlayers].getToken();
-            } else
-            { //move did not work
+            } else {
+                turn--;
+            }
+
+            return turn;
+
+        }
+
+        public int generateAIMove(int turn, int numPlayers) {
+
+            int ySpot = 0;
+            Random rand = new Random();
+            int xSpot = rand.nextInt(cols);
+            while ((grid[ySpot][xSpot] == Color.WHITE) && (ySpot < rows - 1)) {
+                ySpot++;
+            }
+            if (grid[ySpot][xSpot] == Color.WHITE) {
+                grid[ySpot][xSpot] = players[turn % numPlayers].getToken();
+            } else if (ySpot - 1 >= 0 && grid[ySpot - 1][xSpot] == Color.WHITE) {
+                grid[ySpot - 1][xSpot] = players[turn % numPlayers].getToken();
+            } else {
                 turn--;
             }
 
