@@ -15,8 +15,9 @@ public class DrawGrid {
     private JPanel board;
     private Dimension boardSize;
 
-    public DrawGrid(Player[] players, LayoutDetails ld) {
+    public DrawGrid(Player[] players, LayoutDetails ld, boolean hasAi) {
         RoundButton rButton = new RoundButton(new ImageIcon("images\\replay.png"));
+        ai = hasAi;
 
         frame = new JFrame("CONNECT 4");
         frame.setBounds(ld.getX(),ld.getY(),ld.getWidth(), ld.getHeight());
