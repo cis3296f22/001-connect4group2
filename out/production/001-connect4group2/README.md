@@ -3,7 +3,7 @@ An in-progress project aiming to recreate the classic gameplay of connect four o
 
 # How to run
 Provide here instructions on how to use your application.   
-- Download JDK 17 into your computer.
+- Download JDK 17 into your computer. https://www.oracle.com/java/technologies/downloads/#java17
 - Download the latest jar from the release section on github  
 - Run the .jar file you downloaded.
 - You will see a box with a connect 4 grid on the top-left.

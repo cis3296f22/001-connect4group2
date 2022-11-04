@@ -15,7 +15,7 @@ public class DrawMenu{
     public DrawMenu(LayoutDetails ld){
         mode = 0;
 
-        frame = new JFrame("DrawMenu");
+        frame = new JFrame("CONNECT 4");
         //  close button of frame
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         // set location and size of frame
@@ -77,6 +77,7 @@ public class DrawMenu{
         label.add(pvp);
         label.add(Box.createRigidArea(new Dimension(0,20)));
         label.add(pvai);
+        
 
 
     }
