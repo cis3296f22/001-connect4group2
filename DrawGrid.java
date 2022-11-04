@@ -42,6 +42,16 @@ public class DrawGrid {
         rButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try{
+                    System.out.println("here");
+                    Sound s = new Sound();
+                    s.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
+                    Thread t1 = new Thread(s);
+                    t1.start();
+                }catch (Exception ae)
+                {
+                    System.out.println(ae.getMessage());
+                }
                 // remove the board
                 frame.getContentPane().remove(board);
                 // rebuild a board
@@ -159,6 +169,17 @@ public class DrawGrid {
             int xSpot=x/cellWidth;
             int ySpot= 0;
             int numPlayers = players.length;
+
+            try{
+                System.out.println("here");
+                SoundEffect se = new SoundEffect();
+                se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
+                Thread t1 = new Thread(se);
+                t1.start();
+            }catch (Exception ae)
+            {
+                System.out.println(ae.getMessage());
+            }
 
             int temp = turn;
 
