@@ -1,10 +1,7 @@
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
-import java.awt.Dimension;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
@@ -12,16 +9,53 @@ public class DrawGrid {
     private JFrame frame;
     private static boolean didNotMove;
     private boolean moveSuccessful = true;
+    private JPanel board;
+    private Dimension boardSize;
 
     public DrawGrid(Player[] players, LayoutDetails ld) {
-        frame = new JFrame("DrawGrid");
+        RoundButton rButton = new RoundButton(new ImageIcon("images\\replay.png"));
+
+        frame = new JFrame("CONNECT 4");
         frame.setBounds(ld.getX(),ld.getY(),ld.getWidth(), ld.getHeight());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setPreferredSize(frame.getSize());
-        frame.add(new MultiDraw(frame.getSize(),players));
+        frame.setLayout(new BoxLayout(frame.getContentPane(),BoxLayout.Y_AXIS));
+
+        // make some room for button
+        boardSize = new Dimension(ld.getWidth(),ld.getHeight()-150);
+        board = new MultiDraw(boardSize,players);
+
+        frame.add(board);
+
+
+        // empty space
+        JPanel container = new JPanel();
+        container.setSize(ld.width,100);
+        container.add(Box.createRigidArea(new Dimension(0,100)));
+        container.add(rButton);
+        frame.add(container);
+        // button action: reset the game
+        rButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // remove the board
+                frame.getContentPane().remove(board);
+                // rebuild a board
+                board = new MultiDraw(boardSize,players);
+                frame.add(board,players);
+                // refresh the frame
+                frame.repaint();
+            }
+        });
+
+
+
+
+
         frame.pack();
         frame.setVisible(true);
     }
+
 
 
 
