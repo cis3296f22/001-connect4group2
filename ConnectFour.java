@@ -10,6 +10,18 @@ public class ConnectFour {
         // initialize board;
         DrawGrid board;
 
+        //Play BGM
+        try{
+            System.out.println("here");
+            Sound s = new Sound();
+            s.playBackGround("Sounds\\mixkit-just-chill-16.wav");
+            Thread t1 = new Thread(s);
+            t1.start();
+        }catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+
         // this section will be deleted
         int x = 200;
         int y = 200;

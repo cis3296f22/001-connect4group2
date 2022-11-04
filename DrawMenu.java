@@ -47,7 +47,16 @@ public class DrawMenu{
         st.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                try{
+                    System.out.println("here");
+                    SoundEffect se = new SoundEffect();
+                    se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
+                    Thread t1 = new Thread(se);
+                    t1.start();
+                }catch (Exception ae)
+                {
+                    System.out.println(ae.getMessage());
+                }
             }
         });
         JButton pvp = new JButton("Player vs Player");
@@ -55,6 +64,16 @@ public class DrawMenu{
             @Override
             public void actionPerformed(ActionEvent e) {
                 mode = 1;
+                try{
+                    System.out.println("here");
+                    SoundEffect se = new SoundEffect();
+                    se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
+                    Thread t1 = new Thread(se);
+                    t1.start();
+                }catch (Exception ae)
+                {
+                    System.out.println(ae.getMessage());
+                }
             }
         });
         JButton pvai = new JButton("Player vs AI");
@@ -62,6 +81,16 @@ public class DrawMenu{
             @Override
             public void actionPerformed(ActionEvent e) {
                 mode = 2;
+                try{
+                    System.out.println("here");
+                    SoundEffect se = new SoundEffect();
+                    se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
+                    Thread t1 = new Thread(se);
+                    t1.start();
+                }catch (Exception ae)
+                {
+                    System.out.println(ae.getMessage());
+                }
             }
         });
         // center buttons
