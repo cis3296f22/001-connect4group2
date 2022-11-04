@@ -38,13 +38,20 @@ public class ConnectFour {
             System.out.println("Players has been created.");
             menu.hideFrame();
             updateLocation(menu.getlocation(),ld);
-            board = new DrawGrid(players, ld);      // will be used later
+            board = new DrawGrid(players, ld, false);      // will be used later
 
 
             // player vs ai
         }else if(menu.getMode() == 2){
+            Token[] tokens = new Token[numPlayers];
+            Player[] players = new Player[numPlayers];
+            setPlayers(players, tokens);
 
-            //
+            System.out.println("Players has been created.");
+            menu.hideFrame();
+            updateLocation(menu.getlocation(),ld);
+            board = new DrawGrid(players, ld, true);      // will be used later
+
         }
 
 
