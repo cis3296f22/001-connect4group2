@@ -10,6 +10,7 @@ public class ConnectFour {
         // initialize board;
         DrawGrid board;
 
+
         // this section will be deleted
         int x = 200;
         int y = 200;
@@ -33,6 +34,14 @@ public class ConnectFour {
             Token[] tokens = new Token[numPlayers];
             Player[] players = new Player[numPlayers];
             setPlayers(players, tokens);
+            try{
+                System.out.println("here");
+                Sound s = new Sound();
+                s.playBackGround("Sounds\\mixkit-just-chill-16");
+            }catch (Exception e)
+            {
+                System.out.println(e.getMessage());
+            }
 
 
             System.out.println("Players has been created.");
