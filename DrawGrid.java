@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class DrawGrid {
     private JFrame frame;
     private Player[] p;
-    private boolean ai = false;
+    private boolean ai = true;
     private boolean moveSuccessful = true;
 
     public DrawGrid(Player[] players) {
@@ -149,27 +149,36 @@ public class DrawGrid {
 
         public void mouseReleased(MouseEvent e) {
 
-//            if(moveSuccessful)
-//            {
-//                int x = e.getX();
-//                int y = e.getY();
-//                int xSpot=x/cellWidth;
-//                int ySpot= 0;
-//                int numPlayers = players.length;
-//
-//                if(ai)
-//                {
-//                    try {
-//                        TimeUnit.SECONDS.sleep(1);
-//                    } catch (InterruptedException ie) {
-//                        throw new RuntimeException(ie);
-//                    }
-//                    turn = generateAIMove(turn, numPlayers);
-//                }
-//
-//                turn++;
-//                repaint();
-//            }
+            if(ai)
+            {
+                if(moveSuccessful)
+                {
+                    int x = e.getX();
+                    int y = e.getY();
+                    int xSpot=x/cellWidth;
+                    int ySpot= 0;
+                    int numPlayers = players.length;
+                    int temp = turn;
+
+                    try {
+                        TimeUnit.SECONDS.sleep(1);
+                    } catch (InterruptedException ie) {
+                        throw new RuntimeException(ie);
+                    }
+
+
+                    turn = generateAIMove(turn, numPlayers);
+                    //move failed, then redo
+                    while(temp != turn)
+                    {
+                        turn = generateAIMove(temp, numPlayers);
+                    }
+
+
+                    turn++;
+                    repaint();
+                }
+            }
 
         }
 
