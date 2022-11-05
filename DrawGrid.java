@@ -57,9 +57,8 @@ public class DrawGrid {
         rButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-/*
+
                 try{
-                    System.out.println("here");
                     SoundEffect se = new SoundEffect();
                     se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
                     Thread t1 = new Thread(se);
@@ -67,7 +66,7 @@ public class DrawGrid {
                 }catch (Exception ae)
                 {
                     System.out.println(ae.getMessage());
-                }*/
+                }
 
                 // remove the board
                 frame.getContentPane().remove(board);
@@ -82,6 +81,15 @@ public class DrawGrid {
         menuLabel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                //play sound effect
+                try{
+                    SoundEffect se = new SoundEffect();
+                    se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
+                    Thread t1 = new Thread(se);
+                    t1.start();
+                }catch (Exception ae) {
+                    System.out.println(ae.getMessage());
+                }
                 // hide the board
                 frame.setVisible(false);
                 // update frame location
@@ -105,6 +113,15 @@ public class DrawGrid {
         exitLabel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                //play sound effect
+                try{
+                    SoundEffect se = new SoundEffect();
+                    se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
+                    Thread t1 = new Thread(se);
+                    t1.start();
+                }catch (Exception ae) {
+                    System.out.println(ae.getMessage());
+                }
                 menu.closeMenu();
                 frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
             }
@@ -212,7 +229,6 @@ public class DrawGrid {
                 {
                     g2.drawString("AI_" + (turn%numPlayers) + "'s Turn",cellWidth * (1 + cols), 30);
                 }
-
             }
 
         }
@@ -227,7 +243,6 @@ public class DrawGrid {
 
 
             try{
-                System.out.println("here");
                 SoundEffect se = new SoundEffect();
                 se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
                 Thread t1 = new Thread(se);
@@ -258,7 +273,7 @@ public class DrawGrid {
                 turn--;
             }
 
-            System.out.println(x + " " + xSpot + " " + y + " "+ ySpot);
+//            System.out.println(x + " " + xSpot + " " + y + " "+ ySpot);
             turn++;
             repaint();
 

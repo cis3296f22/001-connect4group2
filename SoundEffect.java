@@ -41,6 +41,7 @@ public class SoundEffect implements Runnable
                     this.inputStream = AudioSystem.getAudioInputStream(Sound.class.getResource(url));
                     this.clip.open(inputStream);
                     this.clip.start();
+                    running = false;
                 }
                 catch(Exception e)
                 {

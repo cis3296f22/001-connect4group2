@@ -46,10 +46,10 @@ public class DrawMenu{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    System.out.println("here");
                     SoundEffect se = new SoundEffect();
                     se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
                     Thread t1 = new Thread(se);
+                    t1.start();
                     t1.start();
                 }catch (Exception ae)
                 {
@@ -63,7 +63,6 @@ public class DrawMenu{
             public void actionPerformed(ActionEvent e) {
 
                 try{
-                    System.out.println("here");
                     SoundEffect se = new SoundEffect();
                     se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
                     Thread t1 = new Thread(se);
@@ -82,7 +81,6 @@ public class DrawMenu{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    System.out.println("here");
                     SoundEffect se = new SoundEffect();
                     se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
                     Thread t1 = new Thread(se);
