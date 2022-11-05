@@ -1,9 +1,12 @@
+import javax.sound.sampled.*;
 import javax.swing.*;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
+import javax.xml.crypto.Data;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -11,11 +14,11 @@ public class DrawGrid {
     private JFrame frame;
     private static boolean didNotMove;
     private boolean moveSuccessful = true;
-    private boolean ai = false;
+    private boolean ai;
     private JPanel board;
     private Dimension boardSize;
 
-    public DrawGrid(Player[] players, LayoutDetails ld, boolean hasAi) {
+    public DrawGrid(Player[] players, LayoutDetails ld, boolean hasAi, DrawMenu menu, Gate gate) {
         RoundButton rButton = new RoundButton(new ImageIcon("images\\replay.png"));
         ai = hasAi;
 
@@ -32,26 +35,40 @@ public class DrawGrid {
         frame.add(board);
 
 
-        // empty space
+        // empty space for buttons
         JPanel container = new JPanel();
         container.setSize(ld.width,100);
-        container.add(Box.createRigidArea(new Dimension(0,100)));
+        container.add(Box.createRigidArea(new Dimension(0,110)));
+        // button area layout
+        container.setLayout(new FlowLayout(FlowLayout.LEFT,65,0));
+        // menu button
+        JLabel menuLabel = new JLabel(new ImageIcon("images\\menu.png"));
+        // exit button
+        JLabel exitLabel = new JLabel(new ImageIcon("images\\exit.png"));
+
+        container.add(menuLabel);
         container.add(rButton);
-        frame.add(container);
+        container.add(exitLabel);
+
+
+
+
         // button action: reset the game
         rButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+/*
                 try{
                     System.out.println("here");
-                    Sound s = new Sound();
-                    s.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
-                    Thread t1 = new Thread(s);
+                    SoundEffect se = new SoundEffect();
+                    se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
+                    Thread t1 = new Thread(se);
                     t1.start();
                 }catch (Exception ae)
                 {
                     System.out.println(ae.getMessage());
-                }
+                }*/
+
                 // remove the board
                 frame.getContentPane().remove(board);
                 // rebuild a board
@@ -61,16 +78,55 @@ public class DrawGrid {
                 frame.repaint();
             }
         });
+        // menu label action: hide current frame & display front page
+        menuLabel.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.setVisible(false);
+                // update frame location
+                ld.setX(frame.getLocation().x);
+                ld.setY(frame.getLocation().y);
+                gate.setValue(false);
+
+                menu.resetMode();
+                menu.refreshFrame(ld);
+
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {}
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+            @Override
+            public void mouseExited(MouseEvent e) {}
+
+        });
+        // exit label action: close current frame & close front page
+        exitLabel.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                menu.closeMenu();
+                frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+            }
+            @Override
+            public void mousePressed(MouseEvent e) {}
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        });
 
 
 
 
 
+        frame.add(container);
         frame.pack();
         frame.setVisible(true);
     }
-
-
 
 
     public class MultiDraw extends JPanel  implements MouseListener {
@@ -170,6 +226,7 @@ public class DrawGrid {
             int ySpot= 0;
             int numPlayers = players.length;
 
+
             try{
                 System.out.println("here");
                 SoundEffect se = new SoundEffect();
@@ -180,6 +237,8 @@ public class DrawGrid {
             {
                 System.out.println(ae.getMessage());
             }
+
+
 
             int temp = turn;
 
