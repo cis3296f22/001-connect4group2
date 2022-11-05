@@ -82,13 +82,14 @@ public class DrawGrid {
         menuLabel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                menu.resetMode();
                 frame.setVisible(false);
                 // update frame location
                 ld.setX(frame.getLocation().x);
                 ld.setY(frame.getLocation().y);
                 gate.setValue(false);
 
-                menu.resetMode();
+
                 menu.refreshFrame(ld);
 
             }
