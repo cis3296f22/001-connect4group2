@@ -26,16 +26,12 @@ public class RoundButton extends JButton {
             g.setColor(getBackground());
         }
         // narrow down the size of the button
-        //g.fillOval(20, 20, getSize().width-45, getSize().height-45);
         g.fillOval(0, 0, getSize().width, getSize().height);
         super.paintComponent(g);
     }
 
     // hide square border
     protected void paintBorder(Graphics g) {
-        /*
-        g.setColor(Color.black);
-        g.drawOval(0, 0, getSize().width, getSize().height);*/
     }
 
     Shape shape;

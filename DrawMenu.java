@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 
 public class DrawMenu{
@@ -12,7 +13,7 @@ public class DrawMenu{
     // x : number of pixels from left of the screen
     // y : number of pixels from top of the screen
     // width & height are the size of the frame
-    public DrawMenu(LayoutDetails ld){
+    public DrawMenu(LayoutDetails ld, Gate gate){
         mode = 0;
 
         frame = new JFrame("CONNECT 4");
@@ -34,7 +35,7 @@ public class DrawMenu{
 
         // use this line when not using panel
         //frame.setLayout(new BoxLayout(frame.getContentPane(),BoxLayout.Y_AXIS));
-        createButtons(background);
+        createButtons(background,gate);
 
         frame.add(background);
         frame.pack();
@@ -42,11 +43,12 @@ public class DrawMenu{
     }
 
     //private void createButtons(JFrame f) {
-    private void createButtons(JLabel label) {
+    private void createButtons(JLabel label, Gate gate) {
         JButton st = new JButton("Select Token");
         st.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                gate.setValue(false);
                 try{
                     System.out.println("here");
                     SoundEffect se = new SoundEffect();
@@ -63,6 +65,7 @@ public class DrawMenu{
         pvp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                gate.setValue(false);
                 mode = 1;
                 try{
                     System.out.println("here");
@@ -80,6 +83,7 @@ public class DrawMenu{
         pvai.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                gate.setValue(false);
                 mode = 2;
                 try{
                     System.out.println("here");
@@ -93,20 +97,35 @@ public class DrawMenu{
                 }
             }
         });
+        // exit button
+        JButton exit = new JButton("EXIT");
+        exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gate.setValue(false);
+                mode = 9;
+                frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+            }
+        });
         // center buttons
         st.setAlignmentX(Component.CENTER_ALIGNMENT);
         pvp.setAlignmentX(Component.CENTER_ALIGNMENT);
         pvai.setAlignmentX(Component.CENTER_ALIGNMENT);
+        exit.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 
         // space between buttons
         label.add(Box.createRigidArea(new Dimension(0,200)));
         label.add(st);
         // space between buttons
-        label.add(Box.createRigidArea(new Dimension(0,20)));
+        label.add(Box.createRigidArea(new Dimension(0,15)));
         label.add(pvp);
-        label.add(Box.createRigidArea(new Dimension(0,20)));
+        label.add(Box.createRigidArea(new Dimension(0,15)));
         label.add(pvai);
-        
+        label.add(Box.createRigidArea(new Dimension(0,15)));
+        label.add(exit);
+
+
 
 
     }
@@ -126,4 +145,7 @@ public class DrawMenu{
 
 
     public Point getlocation(){return frame.getLocation();}
+
+    public void resetMode(){mode = 0;}
+    public void closeMenu(){frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));}
 }

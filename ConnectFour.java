@@ -30,47 +30,55 @@ public class ConnectFour {
         // save layout info in a obj
         LayoutDetails ld = new LayoutDetails(x,y,width,height);
 
+        Gate gate = new Gate(false);     // true -> halt the loop, false -> run the loop
         // draw menu
-        DrawMenu menu = new DrawMenu(ld);
+        DrawMenu menu = new DrawMenu(ld,gate);
 
-        while(menu.getMode() == 0){
+        while(menu.getMode() != 9) {
             // block the program
-            System.out.println("****//////******");
+            while(gate.getValue() == true){
+                System.out.println("****//////******");
+            }
+            // halt the loop, by setting true
+            gate.setValue(true);
+            // pvp
+            if (menu.getMode() == 1) {
+                // get number of players   ~  should get from user
+                // Token class will implement custom token(need more work)
+                Token[] tokens = new Token[numPlayers];
+                Player[] players = new Player[numPlayers];
+                setPlayers(players, tokens);
+
+                System.out.println("Players has been created.");
+                menu.hideFrame();
+                updateLocation(menu.getlocation(), ld);
+
+                // release the loop by clicking menu in frame
+                new DrawGrid(players, ld, false, menu, gate);
+
+
+                // player vs ai
+            } else if (menu.getMode() == 2) {
+                Token[] tokens = new Token[numPlayers];
+                Player[] players = new Player[numPlayers];
+                setPlayers(players, tokens);
+
+                System.out.println("Players has been created.");
+                menu.hideFrame();
+                updateLocation(menu.getlocation(), ld);
+
+                // release the loop by clicking menu in frame
+                new DrawGrid(players, ld, true, menu, gate);
+
+            }
+
         }
-
-        // pvp
-        if(menu.getMode() == 1){
-            // get number of players   ~  should get from user
-            // Token class will implement custom token(need more work)
-            Token[] tokens = new Token[numPlayers];
-            Player[] players = new Player[numPlayers];
-            setPlayers(players, tokens);
-
-
-            System.out.println("Players has been created.");
-            menu.hideFrame();
-            updateLocation(menu.getlocation(),ld);
-            board = new DrawGrid(players, ld, false);      // will be used later
-
-
-            // player vs ai
-        }else if(menu.getMode() == 2){
-            Token[] tokens = new Token[numPlayers];
-            Player[] players = new Player[numPlayers];
-            setPlayers(players, tokens);
-
-            System.out.println("Players has been created.");
-            menu.hideFrame();
-            updateLocation(menu.getlocation(),ld);
-            board = new DrawGrid(players, ld, true);      // will be used later
-
-        }
-
 
 
 
 
     }
+
 
 
     public static void setPlayers(Player[] p, Token[] t){
