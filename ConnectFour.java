@@ -12,7 +12,6 @@ public class ConnectFour {
 
         //Play BGM
         try {
-            System.out.println("here");
             Sound s = new Sound();
             s.playBackGround("Sounds\\mixkit-just-chill-16.wav");
             Thread t1 = new Thread(s);
