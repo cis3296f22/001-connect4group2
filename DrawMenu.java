@@ -8,14 +8,13 @@ import java.awt.event.WindowEvent;
 public class DrawMenu{
 
     private JFrame frame;
-    private int mode;       // 1 => pvp,  2 => player vs ai
+    private static int playerChooseColorToken = 1;
+    public static int numPlayers = 2;
 
     // x : number of pixels from left of the screen
     // y : number of pixels from top of the screen
     // width & height are the size of the frame
-    public DrawMenu(LayoutDetails ld, Gate gate){
-        mode = 0;
-
+    public DrawMenu(LayoutDetails ld){
         frame = new JFrame("CONNECT 4");
         //  close button of frame
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -33,9 +32,7 @@ public class DrawMenu{
         background.setLayout(new BoxLayout(background,BoxLayout.Y_AXIS));
 
 
-        // use this line when not using panel
-        //frame.setLayout(new BoxLayout(frame.getContentPane(),BoxLayout.Y_AXIS));
-        createButtons(background,gate);
+        createButtons(background,ld);
 
         frame.add(background);
         frame.pack();
@@ -43,12 +40,11 @@ public class DrawMenu{
     }
 
     //private void createButtons(JFrame f) {
-    private void createButtons(JLabel label, Gate gate) {
+    private void createButtons(JLabel label, LayoutDetails ld) {
         JButton st = new JButton("Select Token");
         st.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gate.setValue(false);
                 try{
                     System.out.println("here");
                     SoundEffect se = new SoundEffect();
@@ -65,8 +61,7 @@ public class DrawMenu{
         pvp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gate.setValue(false);
-                mode = 1;
+
                 try{
                     System.out.println("here");
                     SoundEffect se = new SoundEffect();
@@ -77,14 +72,15 @@ public class DrawMenu{
                 {
                     System.out.println(ae.getMessage());
                 }
+                createGame(ld, false);
+
             }
+
         });
         JButton pvai = new JButton("Player vs AI");
         pvai.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gate.setValue(false);
-                mode = 2;
                 try{
                     System.out.println("here");
                     SoundEffect se = new SoundEffect();
@@ -95,6 +91,7 @@ public class DrawMenu{
                 {
                     System.out.println(ae.getMessage());
                 }
+                createGame(ld, true);
             }
         });
         // exit button
@@ -102,8 +99,6 @@ public class DrawMenu{
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gate.setValue(false);
-                mode = 9;
                 frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
             }
         });
@@ -126,26 +121,37 @@ public class DrawMenu{
         label.add(exit);
 
 
-
-
     }
+    private void createGame(LayoutDetails ld, Boolean hasAI){
 
 
-    public void hideFrame(){
+        ld.setX(frame.getLocation().x);
+        ld.setY(frame.getLocation().y);
+        // get number of players   ~  should get from user
+        // Token class will implement custom token(need more work)
+        Token[] tokens = new Token[numPlayers];
+        Player[] players = new Player[numPlayers];
+
+        for(int i = 0; i < players.length; i++){
+            tokens[i] = new Token(playerChooseColorToken);
+            players[i] = new Player(tokens[i].getColorToken());
+            System.out.println("Player[" + (i+1) + "] has been created.");
+        }
+        System.out.println("Players has been created.");
+
+        new DrawGrid(players, ld, hasAI, this);
         frame.setVisible(false);
+        //frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+
     }
 
     // move frame to a new location
     public void refreshFrame(LayoutDetails ld){
-        frame.setBounds(ld.getX(),ld.getY(),ld.getWidth(),ld.getHeight());
+       // frame.setBounds(ld.getX(),ld.getY(),ld.getWidth(),ld.getHeight());
+        frame.setLocation(ld.getX(),ld.getY());
         frame.setVisible(true);
     }
 
-    public int getMode(){return mode;}
 
-
-    public Point getlocation(){return frame.getLocation();}
-
-    public void resetMode(){mode = 0;}
     public void closeMenu(){frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));}
 }

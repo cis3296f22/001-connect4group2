@@ -18,7 +18,7 @@ public class DrawGrid {
     private JPanel board;
     private Dimension boardSize;
 
-    public DrawGrid(Player[] players, LayoutDetails ld, boolean hasAi, DrawMenu menu, Gate gate) {
+    public DrawGrid(Player[] players, LayoutDetails ld, boolean hasAi, DrawMenu menu) {
         RoundButton rButton = new RoundButton(new ImageIcon("images\\replay.png"));
         ai = hasAi;
 
@@ -82,13 +82,11 @@ public class DrawGrid {
         menuLabel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                menu.resetMode();
+                // hide the board
                 frame.setVisible(false);
                 // update frame location
                 ld.setX(frame.getLocation().x);
                 ld.setY(frame.getLocation().y);
-                gate.setValue(false);
-
 
                 menu.refreshFrame(ld);
 
