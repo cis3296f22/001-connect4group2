@@ -7,9 +7,6 @@ public class ConnectFour {
 
 
     public static void main(String[] args) throws Exception {
-        // initialize board;
-        DrawGrid board;
-
         //Play BGM
         try {
             Sound s = new Sound();

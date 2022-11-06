@@ -45,6 +45,7 @@ public class DrawMenu{
         st.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 try{
                     SoundEffect se = new SoundEffect();
                     se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
@@ -80,6 +81,7 @@ public class DrawMenu{
         pvai.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 try{
                     SoundEffect se = new SoundEffect();
                     se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
