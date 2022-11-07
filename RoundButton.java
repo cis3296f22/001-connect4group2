@@ -34,7 +34,7 @@ public class RoundButton extends JButton {
     protected void paintBorder(Graphics g) {
     }
 
-    Shape shape;
+    private Shape shape;
 
     public boolean contains(int x, int y) {
         // If the button has changed size,  make a new shape object.

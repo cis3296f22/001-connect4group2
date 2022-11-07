@@ -17,7 +17,6 @@ public class ConnectFour {
             System.out.println(e.getMessage());
         }
 
-        // this section will be deleted
         int x = 200;
         int y = 200;
         int width = 600;
