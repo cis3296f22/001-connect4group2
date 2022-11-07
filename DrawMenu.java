@@ -42,8 +42,8 @@ public class DrawMenu{
     //private void createButtons(JFrame f) {
     private void createButtons(JLabel label, LayoutDetails ld) {
         JButton st = new JButton("Select Token");
-        st.setSize(200,40);
-        st.setPreferredSize(new Dimension(200,10));
+        //st.setSize(200,40);
+        //st.setPreferredSize(new Dimension(200,10));
         st.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
