@@ -294,34 +294,37 @@ public class DrawGrid {
                 {
                     if(moveSuccessful)
                     {
-                        int numPlayers = players.length;
-                        int temp = turn;
-
-                        try {
-                            TimeUnit.MILLISECONDS.sleep(500);
-                        } catch (InterruptedException ie) {
-                            throw new RuntimeException(ie);
-                        }
-
-
-                        turn = generateAIMove(turn, numPlayers);
-                        //move failed, then redo
-                        while(temp != turn)
-                        {
-                            turn = generateAIMove(temp, numPlayers);
-                        }
-
-
-                        turn++;
-                        repaint();
                         //win check
                         Color winner = checkIfWon();
                         if(winner != Color.WHITE)
                         {
                             System.out.println("WINNER: "+winner);
                             disablePanelMouseEvent = true;
-                            
+
+                        }else{
+                            int numPlayers = players.length;
+                            int temp = turn;
+
+                            try {
+                                TimeUnit.MILLISECONDS.sleep(500);
+                            } catch (InterruptedException ie) {
+                                throw new RuntimeException(ie);
+                            }
+
+
+                            turn = generateAIMove(turn, numPlayers);
+                            //move failed, then redo
+                            while(temp != turn)
+                            {
+                                turn = generateAIMove(temp, numPlayers);
+                            }
+
+
+                            turn++;
                         }
+                        repaint();
+
+
                     }
                 }else{
                     // win check
