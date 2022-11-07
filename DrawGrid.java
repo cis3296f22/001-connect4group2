@@ -53,6 +53,7 @@ public class DrawGrid {
 
 
 
+
         // button action: reset the game
         rButton.addActionListener(new ActionListener() {
             @Override
@@ -153,7 +154,7 @@ public class DrawGrid {
         int rows = 6;
         int cols = 7;
         Player[] players;
-
+        Boolean disablePanelMouseEvent;
         Color[][] grid = new Color[rows][cols];
 
         public MultiDraw(Dimension dimension, Player[] PL) {
@@ -172,6 +173,10 @@ public class DrawGrid {
                     grid[row][col]= Color.WHITE;
                 }
             }
+
+            // winner screen
+            disablePanelMouseEvent = false;
+
         }
 
         @Override
@@ -234,90 +239,101 @@ public class DrawGrid {
         }
 
         public void mousePressed(MouseEvent e) {
-
-            int x = e.getX();
-            int y = e.getY();
-            int xSpot=x/cellWidth;
-            int ySpot= 0;
-            int numPlayers = players.length;
-
-
-            try{
-                SoundEffect se = new SoundEffect();
-                se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
-                Thread t1 = new Thread(se);
-                t1.start();
-            }catch (Exception ae)
-            {
-                System.out.println(ae.getMessage());
-            }
+            // disable mouse event when winner screen pops out
+            if(!disablePanelMouseEvent){
+                int x = e.getX();
+                int y = e.getY();
+                int xSpot=x/cellWidth;
+                int ySpot= 0;
+                int numPlayers = players.length;
 
 
-
-            int temp = turn;
-
-            try
-            {
-                turn = generatePlayerMove(ySpot, xSpot, turn, numPlayers);
-                moveSuccessful = true;
-                //move fails
-                if(temp != turn)
+                try{
+                    SoundEffect se = new SoundEffect();
+                    se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
+                    Thread t1 = new Thread(se);
+                    t1.start();
+                }catch (Exception ae)
                 {
-                    moveSuccessful = false;
+                    System.out.println(ae.getMessage());
                 }
-            }
-            catch (ArrayIndexOutOfBoundsException ae)
-            {
-                //move fails
-                moveSuccessful = false;
-                turn--;
-            }
+
+
+
+                int temp = turn;
+
+                try
+                {
+                    turn = generatePlayerMove(ySpot, xSpot, turn, numPlayers);
+                    moveSuccessful = true;
+                    //move fails
+                    if(temp != turn)
+                    {
+                        moveSuccessful = false;
+                    }
+                }
+                catch (ArrayIndexOutOfBoundsException ae)
+                {
+                    //move fails
+                    moveSuccessful = false;
+                    turn--;
+                }
 
 //            System.out.println(x + " " + xSpot + " " + y + " "+ ySpot);
-            turn++;
-            repaint();
-
-            //win check
-            Color winner = checkIfWon();
-            if(winner != Color.WHITE)
-            {
-                System.out.println("WINNER: "+winner);
+                turn++;
+                repaint();
             }
+
 
         }
 
         public void mouseReleased(MouseEvent e) {
-
-            if(ai)
-            {
-                if(moveSuccessful)
+            // disable mouse event when winner screen pops out
+            if(!disablePanelMouseEvent){
+                if(ai)
                 {
-                    int x = e.getX();
-                    int y = e.getY();
-                    int xSpot=x/cellWidth;
-                    int ySpot= 0;
-                    int numPlayers = players.length;
-                    int temp = turn;
-
-                    try {
-                        TimeUnit.MILLISECONDS.sleep(500);
-                    } catch (InterruptedException ie) {
-                        throw new RuntimeException(ie);
-                    }
-
-
-                    turn = generateAIMove(turn, numPlayers);
-                    //move failed, then redo
-                    while(temp != turn)
+                    if(moveSuccessful)
                     {
-                        turn = generateAIMove(temp, numPlayers);
+                        int numPlayers = players.length;
+                        int temp = turn;
+
+                        try {
+                            TimeUnit.MILLISECONDS.sleep(500);
+                        } catch (InterruptedException ie) {
+                            throw new RuntimeException(ie);
+                        }
+
+
+                        turn = generateAIMove(turn, numPlayers);
+                        //move failed, then redo
+                        while(temp != turn)
+                        {
+                            turn = generateAIMove(temp, numPlayers);
+                        }
+
+
+                        turn++;
+                        repaint();
+                        //win check
+                        Color winner = checkIfWon();
+                        if(winner != Color.WHITE)
+                        {
+                            System.out.println("WINNER: "+winner);
+                            disablePanelMouseEvent = true;
+                            
+                        }
                     }
-
-
-                    turn++;
-                    repaint();
+                }else{
+                    // win check
+                    Color winner = checkIfWon();
+                    if(winner != Color.WHITE)
+                    {
+                        System.out.println("WINNER: "+winner);
+                        disablePanelMouseEvent = true;
+                    }
                 }
             }
+
 
         }
 
@@ -373,7 +389,7 @@ public class DrawGrid {
 
 
         //https://codereview.stackexchange.com/questions/127091/java-connect-four-four-in-a-row-detection-algorithms
-        public Color checkIfWon()
+        private Color checkIfWon()
         {
             int HEIGHT = rows;
             int WIDTH = cols;

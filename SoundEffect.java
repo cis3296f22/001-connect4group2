@@ -5,9 +5,6 @@ import javax.sound.sampled.LineUnavailableException;
 
 public class SoundEffect implements Runnable
 {
-    private boolean running = true;
-    private Thread thread;
-
     public SoundEffect()
     {
         this.start();
@@ -15,11 +12,10 @@ public class SoundEffect implements Runnable
 
     public void start()
     {
-        if(running)
+        if(true)
             return;
-        this.thread = new Thread(this);
-        this.running = true;
-        this.thread.start();
+        Thread thread = new Thread(this);
+        thread.start();
     }
 
     //
@@ -31,8 +27,6 @@ public class SoundEffect implements Runnable
     @Override
     public void run()
     {
-        while(running)
-        {
             if(inputStream == null && playSong)
             {
                 this.playSong = false;
@@ -41,14 +35,12 @@ public class SoundEffect implements Runnable
                     this.inputStream = AudioSystem.getAudioInputStream(Sound.class.getResource(url));
                     this.clip.open(inputStream);
                     this.clip.start();
-                    running = false;
                 }
                 catch(Exception e)
                 {
                     e.printStackTrace();
                 }
             }
-        }
     }
 
     public void playBackGround(String string) // call to play .wav file
