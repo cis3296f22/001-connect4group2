@@ -12,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 
 public class DrawGrid {
     private JFrame frame;
-    private static boolean didNotMove;
     private boolean moveSuccessful = true;
     private boolean ai;
     private JPanel board;
@@ -147,15 +146,15 @@ public class DrawGrid {
 
 
     public class MultiDraw extends JPanel  implements MouseListener {
-        int startX = 10;
-        int startY = 10;
-        int cellWidth = 40;
-        int turn;
-        int rows = 6;
-        int cols = 7;
-        Player[] players;
-        Boolean disablePanelMouseEvent;
-        Color[][] grid = new Color[rows][cols];
+        private int startX = 10;
+        private int startY = 10;
+        private int cellWidth = 40;
+        private int turn;
+        private int rows = 6;
+        private int cols = 7;
+        private Player[] players;
+        private Boolean disablePanelMouseEvent;
+        private Color[][] grid = new Color[rows][cols];
 
         public MultiDraw(Dimension dimension, Player[] PL) {
 
@@ -294,34 +293,37 @@ public class DrawGrid {
                 {
                     if(moveSuccessful)
                     {
-                        int numPlayers = players.length;
-                        int temp = turn;
-
-                        try {
-                            TimeUnit.MILLISECONDS.sleep(500);
-                        } catch (InterruptedException ie) {
-                            throw new RuntimeException(ie);
-                        }
-
-
-                        turn = generateAIMove(turn, numPlayers);
-                        //move failed, then redo
-                        while(temp != turn)
-                        {
-                            turn = generateAIMove(temp, numPlayers);
-                        }
-
-
-                        turn++;
-                        repaint();
                         //win check
                         Color winner = checkIfWon();
                         if(winner != Color.WHITE)
                         {
                             System.out.println("WINNER: "+winner);
                             disablePanelMouseEvent = true;
-                            
+
+                        }else{
+                            int numPlayers = players.length;
+                            int temp = turn;
+
+                            try {
+                                TimeUnit.MILLISECONDS.sleep(500);
+                            } catch (InterruptedException ie) {
+                                throw new RuntimeException(ie);
+                            }
+
+
+                            turn = generateAIMove(turn, numPlayers);
+                            //move failed, then redo
+                            while(temp != turn)
+                            {
+                                turn = generateAIMove(temp, numPlayers);
+                            }
+
+
+                            turn++;
                         }
+                        repaint();
+
+
                     }
                 }else{
                     // win check
@@ -349,7 +351,7 @@ public class DrawGrid {
 
         }
 
-        public int generatePlayerMove(int ySpot, int xSpot, int turn, int numPlayers) {
+        private int generatePlayerMove(int ySpot, int xSpot, int turn, int numPlayers) {
 
             ySpot = 0;
             while ((grid[ySpot][xSpot] == Color.WHITE) && (ySpot < rows - 1)) {
@@ -367,7 +369,7 @@ public class DrawGrid {
 
         }
 
-        public int generateAIMove(int turn, int numPlayers) {
+        private int generateAIMove(int turn, int numPlayers) {
 
             int ySpot = 0;
             Random rand = new Random();
