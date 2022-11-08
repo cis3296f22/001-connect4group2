@@ -26,7 +26,8 @@ public class DrawMenu{
 
 
         // set background
-        JLabel background = new JLabel(new ImageIcon("images\\backgroundImage.jpg"));
+        JLabel background = new JLabel(new ImageIcon(getClass().getResource("/resources/backgroundImage.png")));
+//        JLabel background = new JLabel(new ImageIcon("images\\backgroundImage.jpg"));
         background.setSize(ld.getWidth(),ld.getHeight());
         background.setPreferredSize(background.getSize());
         background.setLayout(new BoxLayout(background,BoxLayout.Y_AXIS));
