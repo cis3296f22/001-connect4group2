@@ -252,8 +252,8 @@ public class DrawGrid {
             if(!disablePanelMouseEvent){
                 int x = e.getX();
                 int y = e.getY();
-                int xSpot=x/cellWidth;
-                int ySpot= 0;
+                int xSpot=(x-startX)/cellWidth;
+                int ySpot = 0;
                 int numPlayers = players.length;
 
 
@@ -326,6 +326,12 @@ public class DrawGrid {
                             while(temp != turn)
                             {
                                 turn = generateAIMove(temp, numPlayers);
+                            }
+
+                            winner = checkIfWon();
+                            if(winner != Color.WHITE) {
+                                System.out.println("WINNER: " + winner);
+                                disablePanelMouseEvent = true;
                             }
 
 
