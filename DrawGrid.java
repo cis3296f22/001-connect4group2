@@ -1,12 +1,6 @@
-import javax.sound.sampled.*;
 import javax.swing.*;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
-import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -18,7 +12,7 @@ public class DrawGrid {
     private Dimension boardSize;
 
     public DrawGrid(Player[] players, LayoutDetails ld, boolean hasAi, DrawMenu menu) {
-        RoundButton rButton = new RoundButton(new ImageIcon("images\\replay.png"));
+        RoundButton rButton = new RoundButton(new ImageIcon(getClass().getResource("/res/images/replay.png")));
         ai = hasAi;
 
         frame = new JFrame("CONNECT 4");
@@ -41,9 +35,9 @@ public class DrawGrid {
         // button area layout
         container.setLayout(new FlowLayout(FlowLayout.LEFT,65,0));
         // menu button
-        JLabel menuLabel = new JLabel(new ImageIcon("images\\menu.png"));
+        JLabel menuLabel = new JLabel(new ImageIcon(getClass().getResource("/res/images/menu.png")));
         // exit button
-        JLabel exitLabel = new JLabel(new ImageIcon("images\\exit.png"));
+        JLabel exitLabel = new JLabel(new ImageIcon(getClass().getResource("/res/images/exit.png")));
 
         container.add(menuLabel);
         container.add(rButton);
@@ -60,7 +54,7 @@ public class DrawGrid {
 
                 try{
                     SoundEffect se = new SoundEffect();
-                    se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
+                    se.playBackGround("/res/sounds/mixkit-retro-arcade-casino-notification-211.wav");
                     Thread t1 = new Thread(se);
                     t1.start();
                 }catch (Exception ae)
@@ -84,7 +78,7 @@ public class DrawGrid {
                 //play sound effect
                 try{
                     SoundEffect se = new SoundEffect();
-                    se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
+                    se.playBackGround("/res/sounds/mixkit-retro-arcade-casino-notification-211.wav");
                     Thread t1 = new Thread(se);
                     t1.start();
                 }catch (Exception ae) {
@@ -116,7 +110,7 @@ public class DrawGrid {
                 //play sound effect
                 try{
                     SoundEffect se = new SoundEffect();
-                    se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
+                    se.playBackGround("/res/sounds/mixkit-retro-arcade-casino-notification-211.wav");
                     Thread t1 = new Thread(se);
                     t1.start();
                 }catch (Exception ae) {
@@ -259,7 +253,7 @@ public class DrawGrid {
 
                 try{
                     SoundEffect se = new SoundEffect();
-                    se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
+                    se.playBackGround("/res/sounds/mixkit-retro-arcade-casino-notification-211.wav");
                     Thread t1 = new Thread(se);
                     t1.start();
                 }catch (Exception ae)
