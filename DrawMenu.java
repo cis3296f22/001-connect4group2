@@ -26,8 +26,9 @@ public class DrawMenu{
 
 
         // set background
-        JLabel background = new JLabel(new ImageIcon(getClass().getResource("/resources/backgroundImage.png")));
-//        JLabel background = new JLabel(new ImageIcon("images\\backgroundImage.jpg"));
+        JLabel background;
+        background = new JLabel(new ImageIcon(getClass().getResource("/resources/backgroundImage.jpg")));
+//        background = new JLabel(new ImageIcon("images\\backgroundImage.jpg"));
         background.setSize(ld.getWidth(),ld.getHeight());
         background.setPreferredSize(background.getSize());
         background.setLayout(new BoxLayout(background,BoxLayout.Y_AXIS));
@@ -51,7 +52,7 @@ public class DrawMenu{
 
                 try{
                     SoundEffect se = new SoundEffect();
-                    se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
+                    se.playBackGround("/resources/mixkit-retro-arcade-casino-notification-211.wav");
                     Thread t1 = new Thread(se);
                     t1.start();
                     t1.start();
@@ -68,7 +69,7 @@ public class DrawMenu{
 
                 try{
                     SoundEffect se = new SoundEffect();
-                    se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
+                    se.playBackGround("/resources/mixkit-retro-arcade-casino-notification-211.wav");
                     Thread t1 = new Thread(se);
                     t1.start();
                 }catch (Exception ae)
@@ -87,7 +88,7 @@ public class DrawMenu{
 
                 try{
                     SoundEffect se = new SoundEffect();
-                    se.playBackGround("Sounds\\mixkit-retro-arcade-casino-notification-211.wav");
+                    se.playBackGround("/resources/mixkit-retro-arcade-casino-notification-211.wav");
                     Thread t1 = new Thread(se);
                     t1.start();
                 }catch (Exception ae)
