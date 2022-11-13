@@ -1,5 +1,3 @@
-import java.awt.*;
-
 public class ConnectFour {
 
     //default numPlayers
@@ -10,7 +8,7 @@ public class ConnectFour {
         //Play BGM
         try {
             Sound s = new Sound();
-            s.playBackGround("Sounds\\mixkit-just-chill-16.wav");
+            s.playBackGround("/res/sounds/mixkit-just-chill-16.wav");
             Thread t1 = new Thread(s);
             t1.start();
         } catch (Exception e) {
