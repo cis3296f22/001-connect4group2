@@ -182,10 +182,20 @@ public class DrawGrid {
         public void paintComponent(Graphics g) {
             Graphics2D g2 = (Graphics2D)g;
             Dimension d = getSize();
-            g2.setColor(new Color(0, 0, 0));
+            //adjust background shading 0-255
+            int shade = 230;
+            g2.setColor(new Color(shade, shade, shade));
             g2.fillRect(0,0,d.width,d.height);
-            startX = 0;
-            startY = 0;
+            startX = 20;
+            int tempX = startX;
+            startY = 10;
+            int gridAdjust = 5;
+            int arcSize = 10;
+
+            //draw board layout
+            g2.setColor(Color.BLUE);
+            g2.fillRoundRect(startX-gridAdjust, startY-gridAdjust, grid[0].length*cellWidth + (2*gridAdjust),
+                    grid.length*cellWidth + (2*gridAdjust), arcSize, arcSize);
 
             //2) draw grid here
             for (int row = 0; row < grid.length; row++) {
@@ -194,7 +204,7 @@ public class DrawGrid {
                     g2.fillOval(startX,startY,cellWidth,cellWidth);
                     startX=startX+cellWidth;
                 }
-                startX=0;
+                startX=tempX;
                 startY+=cellWidth;
 
             }
@@ -202,7 +212,7 @@ public class DrawGrid {
             //mini interface
             int numPlayers = players.length;
 
-            g2.setColor(new Color(255, 255, 255));
+            g2.setColor(Color.BLACK);
             String s = "Turns: " + (turn-2);
             g2.drawString(s,cellWidth * (1 + cols), 20);
             g2.setColor(players[turn%numPlayers].getToken());
@@ -216,7 +226,7 @@ public class DrawGrid {
             }
 
             //no AI
-            g2.setColor(new Color(255, 255, 255));
+            g2.setColor(Color.BLACK);
             if(!ai)
             {
                 g2.drawString("Player_" + (turn%numPlayers + 1) + "'s Turn",cellWidth * (1 + cols), 30);
@@ -242,8 +252,8 @@ public class DrawGrid {
             if(!disablePanelMouseEvent){
                 int x = e.getX();
                 int y = e.getY();
-                int xSpot=x/cellWidth;
-                int ySpot= 0;
+                int xSpot=(x-startX)/cellWidth;
+                int ySpot = 0;
                 int numPlayers = players.length;
 
 
@@ -316,6 +326,12 @@ public class DrawGrid {
                             while(temp != turn)
                             {
                                 turn = generateAIMove(temp, numPlayers);
+                            }
+
+                            winner = checkIfWon();
+                            if(winner != Color.WHITE) {
+                                System.out.println("WINNER: " + winner);
+                                disablePanelMouseEvent = true;
                             }
 
 
