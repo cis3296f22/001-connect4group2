@@ -50,7 +50,7 @@ public class DrawMenu{
 
                 try{
                     SoundEffect se = new SoundEffect();
-                    se.playBackGround("/res/sounds/mixkit-retro-arcade-casino-notification-211.wav");
+                    se.playBackGround("/res/sounds/mixkit-unlock-game-notification-253.wav");
                     Thread t1 = new Thread(se);
                     t1.start();
                     t1.start();
@@ -67,7 +67,7 @@ public class DrawMenu{
 
                 try{
                     SoundEffect se = new SoundEffect();
-                    se.playBackGround("/res/sounds/mixkit-retro-arcade-casino-notification-211.wav");
+                    se.playBackGround("/res/sounds/mixkit-unlock-game-notification-253.wav");
                     Thread t1 = new Thread(se);
                     t1.start();
                 }catch (Exception ae)
@@ -86,7 +86,7 @@ public class DrawMenu{
 
                 try{
                     SoundEffect se = new SoundEffect();
-                    se.playBackGround("/res/sounds/mixkit-retro-arcade-casino-notification-211.wav");
+                    se.playBackGround("/res/sounds/mixkit-unlock-game-notification-253.wav");
                     Thread t1 = new Thread(se);
                     t1.start();
                 }catch (Exception ae)

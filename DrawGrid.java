@@ -54,7 +54,7 @@ public class DrawGrid {
 
                 try{
                     SoundEffect se = new SoundEffect();
-                    se.playBackGround("/res/sounds/mixkit-retro-arcade-casino-notification-211.wav");
+                    se.playBackGround("/res/sounds/mixkit-unlock-game-notification-253.wav");
                     Thread t1 = new Thread(se);
                     t1.start();
                 }catch (Exception ae)
@@ -78,7 +78,7 @@ public class DrawGrid {
                 //play sound effect
                 try{
                     SoundEffect se = new SoundEffect();
-                    se.playBackGround("/res/sounds/mixkit-retro-arcade-casino-notification-211.wav");
+                    se.playBackGround("/res/sounds/mixkit-unlock-game-notification-253.wav");
                     Thread t1 = new Thread(se);
                     t1.start();
                 }catch (Exception ae) {
@@ -253,7 +253,7 @@ public class DrawGrid {
 
                 try{
                     SoundEffect se = new SoundEffect();
-                    se.playBackGround("/res/sounds/mixkit-retro-arcade-casino-notification-211.wav");
+                    se.playBackGround("/res/sounds/mixkit-unlock-game-notification-253.wav");
                     Thread t1 = new Thread(se);
                     t1.start();
                 }catch (Exception ae)
