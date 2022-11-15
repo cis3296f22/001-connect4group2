@@ -105,7 +105,7 @@ public class DrawMenu{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    SoundEffect se = new SoundEffect();
+                    SoundEffect se = new SoundEffect();//SE for exit
                     se.playBackGround("/res/sounds/mixkit-retro-arcade-casino-notification-211.wav");
                     Thread t1 = new Thread(se);
                     t1.start();
