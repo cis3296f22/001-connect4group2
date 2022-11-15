@@ -12,7 +12,9 @@ public class DrawGrid {
     private Dimension boardSize;
     private JLabel win_label;
     private Player[] players;
+    private boolean gameOver = false;
 
+    private JPanel container;
     public DrawGrid(Player[] players, LayoutDetails ld, boolean hasAi, DrawMenu menu) {
         this.players=players;
         RoundButton rButton = new RoundButton(new ImageIcon(getClass().getResource("/res/images/replay.png")));
@@ -30,9 +32,35 @@ public class DrawGrid {
 
         frame.add(board);
 
+        Window w=new Window(null)
+        {
+            @Override
+            public void paint(Graphics g)
+            {
+                final Font font = getFont().deriveFont(48f);
+                g.setFont(font);
+                g.setColor(Color.RED);
+                final String message = "Hello";
+                FontMetrics metrics = g.getFontMetrics();
+                if(gameOver)
+                {
+                    //draw line
+                }
+            }
+            @Override
+            public void update(Graphics g)
+            {
+                paint(g);
+            }
+        };
+        w.setAlwaysOnTop(true);
+        w.setBounds(w.getGraphicsConfiguration().getBounds());
+        w.setBackground(new Color(0, true));
+        w.setVisible(true);
+
 
         // empty space for buttons
-        JPanel container = new JPanel();
+        this.container = new JPanel();
         container.setSize(ld.width,100);
         container.add(Box.createRigidArea(new Dimension(0,110)));
         // button area layout
@@ -67,12 +95,15 @@ public class DrawGrid {
                 {
                     System.out.println(ae.getMessage());
                 }
-
+                win_label.setVisible(false);
                 // remove the board
                 frame.getContentPane().remove(board);
                 // rebuild a board
                 board = new MultiDraw(boardSize,players);
+                gameOver = false;
                 frame.add(board,players);
+                frame.getContentPane().remove(container);
+                frame.add(container);
                 // refresh the frame
                 frame.repaint();
             }
