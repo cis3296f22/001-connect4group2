@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test;
 import javax.swing.*;
 import java.awt.*;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 
 public class ConnectFourTest {
@@ -15,15 +16,16 @@ public class ConnectFourTest {
     Player[] pl;
     Token[] tokens;
     DrawGrid dg;
-       @BeforeEach
+    @BeforeEach
     void setUp() {
-           c4 = new ConnectFour();
-           ld = new LayoutDetails();
-           mu = new DrawMenu();
-           pl = new Player[2];
-           pl[0] = new Player();
-           pl[1] = new Player();
-           tokens = new Token[2];
+        c4 = new ConnectFour();
+        ld = new LayoutDetails();
+        mu = new DrawMenu();
+        pl = new Player[2];
+        pl[0] = new Player();
+        pl[1] = new Player();
+        tokens = new Token[2];
+
     }
 
     @AfterEach
@@ -34,7 +36,8 @@ public class ConnectFourTest {
     @Test
     void shouldCallMenu(){
         try {
-            c4.main();
+            c4.main(new String[]{});
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -60,23 +63,24 @@ public class ConnectFourTest {
     }
     @Test
     void shouldSetTwoTokens(){
-           tokens[0] = new Token();
-           tokens[1] = new Token();
-           assertEquals(tokens[0].getColorToken(), Color.WHITE);
-           assertEquals(tokens[1].getColorToken(), Color.WHITE);
+        tokens[0] = new Token();
+        tokens[1] = new Token();
+        assertEquals(tokens[0].getColorToken(), Color.WHITE);
+        assertEquals(tokens[1].getColorToken(), Color.WHITE);
     }
     @Test
     void shouldMakeGrid(){
-           dg = new DrawGrid(pl,ld,false,mu);
+        dg = new DrawGrid(pl,ld,false,mu);
     }
     @Test
     void shouldMakeRoundButton(){
-           RoundButton rb = new RoundButton(new ImageIcon(getClass().getResource("/res/images/replay.png")));
+        RoundButton rb = new RoundButton(new ImageIcon(getClass().getResource("/res/images/replay.png")));
     }
     @Test
     void shouldPlayMusic(){
-           Sound bgm = new Sound();
-           bgm.playBackGround("/res/sounds/mixkit-unlock-game-notification-253.wav");
+        Sound bgm = new Sound();
+        bgm.playBackGround("/res/sounds/mixkit-unlock-game-notification-253.wav");
+
     }
 
 }
