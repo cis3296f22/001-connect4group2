@@ -14,6 +14,7 @@ public class DrawMenu{
     // x : number of pixels from left of the screen
     // y : number of pixels from top of the screen
     // width & height are the size of the frame
+    public DrawMenu(){}
     public DrawMenu(LayoutDetails ld){
         frame = new JFrame("CONNECT 4");
         //  close button of frame
