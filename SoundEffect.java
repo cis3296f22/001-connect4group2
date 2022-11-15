@@ -3,8 +3,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 
-public class SoundEffect implements Runnable
-{
+public class SoundEffect implements Runnable{
     public SoundEffect()
     {
         this.start();

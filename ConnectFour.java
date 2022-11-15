@@ -1,6 +1,7 @@
+
 public class ConnectFour {
 
-    public static void main(String[] args) throws Exception {
+    public static void main() throws Exception {
         //Play BGM
         try {
             Sound s = new Sound();

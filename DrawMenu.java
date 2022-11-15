@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
 
-public class DrawMenu{
+public class DrawMenu {
 
     private JFrame frame;
     private static int playerChooseColorToken = 1;
@@ -14,6 +14,7 @@ public class DrawMenu{
     // x : number of pixels from left of the screen
     // y : number of pixels from top of the screen
     // width & height are the size of the frame
+    public DrawMenu(){}
     public DrawMenu(LayoutDetails ld){
         frame = new JFrame("CONNECT 4");
         //  close button of frame
