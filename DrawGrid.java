@@ -10,8 +10,11 @@ public class DrawGrid {
     private boolean ai;
     private JPanel board;
     private Dimension boardSize;
+    private JLabel win_label;
+    private Player[] players;
 
     public DrawGrid(Player[] players, LayoutDetails ld, boolean hasAi, DrawMenu menu) {
+        this.players=players;
         RoundButton rButton = new RoundButton(new ImageIcon(getClass().getResource("/res/images/replay.png")));
         ai = hasAi;
 
@@ -33,16 +36,19 @@ public class DrawGrid {
         container.setSize(ld.width,100);
         container.add(Box.createRigidArea(new Dimension(0,110)));
         // button area layout
-        container.setLayout(new FlowLayout(FlowLayout.LEFT,65,0));
+        container.setLayout(new FlowLayout(FlowLayout.LEFT,60,0));
         // menu button
         JLabel menuLabel = new JLabel(new ImageIcon(getClass().getResource("/res/images/menu.png")));
         // exit button
         JLabel exitLabel = new JLabel(new ImageIcon(getClass().getResource("/res/images/exit.png")));
 
+        win_label = new JLabel("WINNER: ");
+        win_label.setVisible(false);
+
         container.add(menuLabel);
         container.add(rButton);
         container.add(exitLabel);
-
+        container.add(win_label);
 
 
 
@@ -302,6 +308,15 @@ public class DrawGrid {
                         if(winner != Color.WHITE)
                         {
                             System.out.println("WINNER: "+winner);
+                            win_label.setVisible(true);
+                            for(int i = 0; i < players.length; i++)
+                            {
+                                if(players[i].getToken() == winner)
+                                {
+                                    win_label.setText("Player "+(i+1)+" Wins!");
+                                    break;
+                                }
+                            }
                             disablePanelMouseEvent = true;
 
                         }else{
@@ -325,6 +340,15 @@ public class DrawGrid {
                             winner = checkIfWon();
                             if(winner != Color.WHITE) {
                                 System.out.println("WINNER: " + winner);
+                                win_label.setVisible(true);
+                                for(int i = 0; i < players.length; i++)
+                                {
+                                    if(players[i].getToken() == winner)
+                                    {
+                                        win_label.setText("Player "+(i+1)+" Wins!");
+                                        break;
+                                    }
+                                }
                                 disablePanelMouseEvent = true;
                             }
 
@@ -341,6 +365,15 @@ public class DrawGrid {
                     if(winner != Color.WHITE)
                     {
                         System.out.println("WINNER: "+winner);
+                        win_label.setVisible(true);
+                        for(int i = 0; i < players.length; i++)
+                        {
+                            if(players[i].getToken() == winner)
+                            {
+                                win_label.setText("Player "+(i+1)+" Wins!");
+                                break;
+                            }
+                        }
                         disablePanelMouseEvent = true;
                     }
                 }
