@@ -60,6 +60,7 @@ public class DrawMenu{
                 }
             }
         });
+
         JButton pvp = new JButton("Player vs Player");
         pvp.addActionListener(new ActionListener() {
             @Override
@@ -79,6 +80,7 @@ public class DrawMenu{
             }
 
         });
+
         JButton pvai = new JButton("Player vs AI");
         pvai.addActionListener(new ActionListener() {
             @Override
@@ -96,11 +98,21 @@ public class DrawMenu{
                 createGame(ld, true);
             }
         });
+
         // exit button
         JButton exit = new JButton("EXIT");
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try{
+                    SoundEffect se = new SoundEffect();
+                    se.playBackGround("/res/sounds/mixkit-retro-arcade-casino-notification-211.wav");
+                    Thread t1 = new Thread(se);
+                    t1.start();
+                }catch (Exception ae)
+                {
+                    System.out.println(ae.getMessage());
+                }
                 frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
             }
         });

@@ -108,7 +108,7 @@ public class DrawGrid {
             @Override
             public void mouseClicked(MouseEvent e) {
                 //play sound effect
-                try{
+                try{//
                     SoundEffect se = new SoundEffect();
                     se.playBackGround("/res/sounds/mixkit-retro-arcade-casino-notification-211.wav");
                     Thread t1 = new Thread(se);
