@@ -101,6 +101,15 @@ public class DrawMenu{
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try{
+                    SoundEffect se = new SoundEffect();
+                    se.playBackGround("/res/sounds/mixkit-retro-arcade-casino-notification-211.wav");
+                    Thread t1 = new Thread(se);
+                    t1.start();
+                }catch (Exception ae)
+                {
+                    System.out.println(ae.getMessage());
+                }
                 frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
             }
         });
