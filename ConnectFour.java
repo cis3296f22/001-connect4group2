@@ -1,9 +1,5 @@
 public class ConnectFour {
 
-    //default numPlayers
-
-
-
     public static void main(String[] args) throws Exception {
         //Play BGM
         try {
