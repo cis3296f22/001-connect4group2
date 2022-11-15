@@ -5,7 +5,7 @@ public class Token {
 
     Color colorToken;
     public Token(){
-
+        colorToken = Color.white;
     }
     // if t = 2, then set an image instead of pure color(need more work)
     public Token(int t){

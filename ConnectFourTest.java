@@ -8,6 +8,7 @@ import java.awt.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
+
 public class ConnectFourTest {
     ConnectFour c4;
     LayoutDetails ld;
@@ -24,6 +25,7 @@ public class ConnectFourTest {
         pl[0] = new Player();
         pl[1] = new Player();
         tokens = new Token[2];
+
     }
 
     @AfterEach
@@ -35,6 +37,7 @@ public class ConnectFourTest {
     void shouldCallMenu(){
         try {
             c4.main(new String[]{});
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -77,6 +80,7 @@ public class ConnectFourTest {
     void shouldPlayMusic(){
         Sound bgm = new Sound();
         bgm.playBackGround("/res/sounds/mixkit-unlock-game-notification-253.wav");
+
     }
 
 }

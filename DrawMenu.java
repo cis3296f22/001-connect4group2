@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
 
-public class DrawMenu{
+public class DrawMenu {
 
     private JFrame frame;
     private static int playerChooseColorToken = 1;
