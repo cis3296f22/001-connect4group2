@@ -7,7 +7,7 @@ public class RoundButton extends JButton {
     public RoundButton(Icon img) {
        // super(img);
 
-        setBackground(Color.green);
+        setBackground(Color.CYAN);
         setIcon(img);
         setFocusable(false);
 

@@ -13,6 +13,7 @@ public class DrawGrid {
     private JLabel win_label;
     private Player[] players;
     private boolean gameOver = false;
+    private boolean gameEnd = false;
 
     private JPanel container;
     public DrawGrid(Player[] players, LayoutDetails ld, boolean hasAi, DrawMenu menu) {
@@ -77,8 +78,6 @@ public class DrawGrid {
         container.add(rButton);
         container.add(exitLabel);
         container.add(win_label);
-
-
 
 
         // button action: reset the game
@@ -217,7 +216,7 @@ public class DrawGrid {
             int shade = 230;
             g2.setColor(new Color(shade, shade, shade));
             g2.fillRect(0,0,d.width,d.height);
-            startX = 20;
+            startX = 30;
             int tempX = startX;
             startY = 10;
             int gridAdjust = 5;
@@ -245,22 +244,22 @@ public class DrawGrid {
 
             g2.setColor(Color.BLACK);
             String s = "Turns: " + (turn-2);
-            g2.drawString(s,cellWidth * (1 + cols), 20);
+            g2.drawString(s,cellWidth * (1 + cols) + startX, 20);
             g2.setColor(players[turn%numPlayers].getToken());
-            g2.fillOval(cellWidth * (1 + cols),40,cellWidth,cellWidth);
+            g2.fillOval(cellWidth * (1 + cols) + startX,40,cellWidth,cellWidth);
 
             //Error message
             if(moveSuccessful == false)
             {
                 g2.setColor(Color.RED);
-                g2.drawString("Move was not successful please redo the move", cellWidth * (1 + cols), 50+cellWidth);
+                g2.drawString("Move was not successful please redo", cellWidth * (1 + cols) + startX, 50+cellWidth);
             }
 
             //no AI
             g2.setColor(Color.BLACK);
             if(!ai)
             {
-                g2.drawString("Player_" + (turn%numPlayers + 1) + "'s Turn",cellWidth * (1 + cols), 30);
+                g2.drawString("Player_" + (turn%numPlayers + 1) + "'s Turn",cellWidth * (1 + cols) + startX, 30);
             }
             //there is an AI
             else
@@ -268,12 +267,74 @@ public class DrawGrid {
                 //player
                 if(turn%numPlayers != numPlayers-1)
                 {
-                    g2.drawString("Player_" + (turn%numPlayers + 1) + "'s Turn",cellWidth * (1 + cols), 30);
+                    g2.drawString("Player_" + (turn%numPlayers + 1) + "'s Turn",cellWidth * (1 + cols) + startX, 30);
                 }
                 else
                 {
-                    g2.drawString("AI_" + (turn%numPlayers) + "'s Turn",cellWidth * (1 + cols), 30);
+                    g2.drawString("AI_" + (turn%numPlayers) + "'s Turn",cellWidth * (1 + cols) + startX, 30);
                 }
+            }
+
+            //draw game end screen
+            if(gameEnd)
+            {
+                int boxWidth = 200;
+                int boxHeight = 100;
+                int boxArc = 10;
+                int shading = 255;
+                int shading2 = 80;
+                int adj = 15;
+                int adj2 = 10;
+                int inc = 9;
+
+                int sx = cellWidth * (1 + cols) + startX;
+                int sy = d.height/2;
+                g2.setColor(new Color(shading2, shading2, shading));
+                g2.fillRoundRect(sx-adj, sy-adj, boxWidth-(adj-adj2), boxHeight-(adj-adj2), boxArc, boxArc);
+                g2.setColor(Color.BLACK);
+                g2.fillRoundRect(sx-adj2, sy-adj2, boxWidth-adj, boxHeight-adj, boxArc, boxArc);
+
+                g2.setColor(players[(turn-1)%numPlayers].getToken());
+                g2.fillOval(sx + boxWidth-cellWidth*2-30, sy-10, cellWidth, cellWidth);
+                g2.setColor(Color.WHITE);
+                g2.drawString("Result Screen", sx, sy+3);
+
+                Color win = checkIfWon();
+                if(ai)
+                {
+                    if(players[1].getToken() == win)
+                    {
+                        inc+=10;
+                        g2.drawString("AI Wins!", sx, sy+inc);
+                    }
+                    else
+                    {
+                        inc+=10;
+                        g2.drawString("Player Wins!", sx, sy+inc);
+                    }
+                }
+                else
+                {
+                    inc+=10;
+                    for(int i = 0; i < players.length; i++)
+                    {
+                        if(players[i].getToken() == win)
+                        {
+                            g2.drawString("Player " + (i+1) + " Wins!", sx, sy+inc);
+                            break;
+                        }
+                    }
+                }
+
+                inc+=20;
+                g2.drawString("Press Menu to go to start.", sx, sy+inc);
+                inc+=10;
+                g2.drawString("Press Restart Icon to replay.", sx, sy+inc);
+                inc+=10;
+                g2.drawString("Press Exit to leave game.", sx, sy+inc);
+
+                gameEnd = false;
+
             }
 
         }
@@ -344,6 +405,7 @@ public class DrawGrid {
                             {
                                 if(players[i].getToken() == winner)
                                 {
+                                    gameEnd = true;
                                     win_label.setText("Player "+(i+1)+" Wins!");
                                     break;
                                 }
@@ -376,7 +438,9 @@ public class DrawGrid {
                                 {
                                     if(players[i].getToken() == winner)
                                     {
-                                        win_label.setText("Player "+(i+1)+" Wins!");
+                                        win_label.setText("AI "+(1)+" Wins!");
+                                        gameEnd = true;
+                                        repaint();
                                         break;
                                     }
                                 }
@@ -390,7 +454,7 @@ public class DrawGrid {
 
 
                     }
-                }else{
+                }else{//Player vs. Player
                     // win check
                     Color winner = checkIfWon();
                     if(winner != Color.WHITE)
@@ -402,6 +466,8 @@ public class DrawGrid {
                             if(players[i].getToken() == winner)
                             {
                                 win_label.setText("Player "+(i+1)+" Wins!");
+                                gameEnd = true;
+                                repaint();
                                 break;
                             }
                         }
