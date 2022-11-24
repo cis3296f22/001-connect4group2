@@ -16,6 +16,7 @@ public class ConnectFourTest {
     Player[] pl;
     Token[] tokens;
     DrawGrid dg;
+    AI ai;
     @BeforeEach
     void setUp() {
         c4 = new ConnectFour();
@@ -25,6 +26,7 @@ public class ConnectFourTest {
         pl[0] = new Player();
         pl[1] = new Player();
         tokens = new Token[2];
+        ai = new AI_easy();
 
     }
 
@@ -69,8 +71,14 @@ public class ConnectFourTest {
         assertEquals(tokens[1].getColorToken(), Color.WHITE);
     }
     @Test
+    void shouldSetAI(){
+        ai = new AI_hard();
+        ai = new AI_easy();
+    }
+
+    @Test
     void shouldMakeGrid(){
-        dg = new DrawGrid(pl,ld,false,mu);
+        dg = new DrawGrid(pl,ld,false,mu,ai);
     }
     @Test
     void shouldMakeRoundButton(){

@@ -16,7 +16,7 @@ public class DrawGrid {
     private boolean gameEnd = false;
 
     private JPanel container;
-    public DrawGrid(Player[] players, LayoutDetails ld, boolean hasAi, DrawMenu menu) {
+    public DrawGrid(Player[] players, LayoutDetails ld, boolean hasAi, DrawMenu menu, AI algorithm) {
         this.players=players;
         RoundButton rButton = new RoundButton(new ImageIcon(getClass().getResource("/res/images/replay.png")));
         ai = hasAi;
@@ -29,7 +29,7 @@ public class DrawGrid {
 
         // make some room for button
         boardSize = new Dimension(ld.getWidth(),ld.getHeight()-150);
-        board = new MultiDraw(boardSize,players);
+        board = new MultiDraw(boardSize,players,algorithm);
 
         frame.add(board);
 
@@ -98,7 +98,7 @@ public class DrawGrid {
                 // remove the board
                 frame.getContentPane().remove(board);
                 // rebuild a board
-                board = new MultiDraw(boardSize,players);
+                board = new MultiDraw(boardSize,players,algorithm);
                 gameOver = false;
                 frame.add(board,players);
                 frame.getContentPane().remove(container);
@@ -185,12 +185,12 @@ public class DrawGrid {
         private Player[] players;
         private Boolean disablePanelMouseEvent;
         private Color[][] grid = new Color[rows][cols];
-
-        public MultiDraw(Dimension dimension, Player[] PL) {
+        private AI ai_al;
+        public MultiDraw(Dimension dimension, Player[] PL, AI ai_algorithm) {
 
             players = PL;
             turn = players.length;
-
+            ai_al = ai_algorithm;
 
             setSize(dimension);
             setPreferredSize(dimension);
@@ -422,12 +422,13 @@ public class DrawGrid {
                                 throw new RuntimeException(ie);
                             }
 
+                            // public int generateAIMove(int turn, int numPlayers, int cols, int rows, Player[] players, Color[][] grid) {
 
-                            turn = generateAIMove(turn, numPlayers);
+                            turn = ai_al.generateAIMove(turn, numPlayers,cols,rows,players,grid);
                             //move failed, then redo
                             while(temp != turn)
                             {
-                                turn = generateAIMove(temp, numPlayers);
+                                turn = ai_al.generateAIMove(temp, numPlayers,cols,rows,players,grid);
                             }
 
                             winner = checkIfWon();
@@ -508,7 +509,7 @@ public class DrawGrid {
             return turn;
 
         }
-
+/*
         private int generateAIMove(int turn, int numPlayers) {
 
             int ySpot = 0;
@@ -527,7 +528,7 @@ public class DrawGrid {
 
             return turn;
 
-        }
+        }*/
 
 
         //https://codereview.stackexchange.com/questions/127091/java-connect-four-four-in-a-row-detection-algorithms
