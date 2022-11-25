@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.Line2D;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -14,9 +15,12 @@ public class DrawGrid {
     private Player[] players;
     private boolean gameOver = false;
     private boolean gameEnd = false;
-    private int[2] winLoc1;
-    private int[2] winLoc2;
+    private int[] winLoc1 = {-1,-1};
+    private int[] winLoc2 = {-1,-1};
 
+    private int ROWS = 6;
+    private int COLS = 7;
+    private Graphics2D g2Ref;
     private JPanel container;
     public DrawGrid(Player[] players, LayoutDetails ld, boolean hasAi, DrawMenu menu, AI algorithm) {
         this.players=players;
@@ -35,25 +39,31 @@ public class DrawGrid {
 
         frame.add(board);
 
-        Window w=new Window(null)
-        {
+        Window w=new Window(null) {
             @Override
-            public void paint(Graphics g)
-            {
+            public void paint(Graphics g) {
+                if (winLoc1[0] != -1 && winLoc1[1] != -1 && winLoc2[0] != -1 && winLoc2[1] != -1) {
+                    g.drawLine(winLoc1[0], winLoc1[1], 0, 0);
+                }
                 final Font font = getFont().deriveFont(48f);
                 g.setFont(font);
                 g.setColor(Color.RED);
                 final String message = "Hello";
                 FontMetrics metrics = g.getFontMetrics();
-                if(gameOver)
-                {
-                    //draw line
-                }
+
             }
+
             @Override
-            public void update(Graphics g)
-            {
+            public void update(Graphics g) {
                 paint(g);
+            }
+
+            private int[] CoordFromGridPos(int[] loc)
+            {
+                int result[] = new int[2];
+                result[0] = (int) (boardSize.getWidth() / COLS * loc[0]);
+                result[1] = (int) (boardSize.getHeight() / ROWS * loc[1]);
+                return result;
             }
         };
         w.setAlwaysOnTop(true);
@@ -155,8 +165,8 @@ public class DrawGrid {
         private int startY = 10;
         private int cellWidth = 40;
         private int turn;
-        private int rows = 6;
-        private int cols = 7;
+        private int rows = ROWS;
+        private int cols = COLS;
         private Player[] players;
         private Boolean disablePanelMouseEvent;
         private Color[][] grid = new Color[rows][cols];
@@ -191,6 +201,7 @@ public class DrawGrid {
             int shade = 230;
             g2.setColor(new Color(shade, shade, shade));
             g2.fillRect(0,0,d.width,d.height);
+            g2Ref = g2;
             startX = 30;
             int tempX = startX;
             startY = 10;
@@ -430,6 +441,13 @@ public class DrawGrid {
                         {
                             if(players[i].getToken() == winner)
                             {
+                                System.out.println("First:" + (winLoc1[0]+1) + ", " +  (winLoc1[1]+1));
+                                System.out.println("Second:" + (winLoc2[0]+1) + ", " +  (winLoc2[1]+1));
+                                int LineEndCoordX = (int) (boardSize.getWidth() / rows) * (winLoc1[1]+1) + 30;
+                                int LineEndCoordY = (int) (boardSize.getWidth() / rows) * (winLoc1[0]+1);
+                                System.out.println("First:" + LineEndCoordY + ", " +  LineEndCoordX);
+                                g2Ref.drawLine(0,0,LineEndCoordX,LineEndCoordY);
+                                //System.out.println("Second:" + (winLoc2[0]+1) + ", " +  (winLoc2[1]+1));
                                 win_label.setText("Player "+(i+1)+" Wins!");
                                 gameEnd = true;
                                 repaint();
@@ -491,8 +509,8 @@ public class DrawGrid {
                             player == grid[r][c+2] &&
                             player == grid[r][c+3])
                     {
-                        winLoc1 = {r,c};
-                        winLoc2 = {r,c+3};
+                        winLoc1 = new int[]{r, c};
+                        winLoc2 = new int[]{r,c+3};
                         return player;
                     }
                         
@@ -501,8 +519,8 @@ public class DrawGrid {
                                 player == grid[r+2][c] &&
                                 player == grid[r+3][c])
                         {
-                            winLoc1 = {r,c};
-                            winLoc2 = {r+3,c};
+                            winLoc1 = new int[]{r,c};
+                            winLoc2 = new int[]{r+3,c};
                             return player;
                         }
                             
@@ -511,8 +529,8 @@ public class DrawGrid {
                                 player == grid[r+2][c+2] &&
                                 player == grid[r+3][c+3])
                         {
-                            winLoc1 = {r,c};
-                            winLoc2 = {r+3,c+3};
+                            winLoc1 = new int[]{r,c};
+                            winLoc2 = new int[]{r+3,c+3};
                             return player;
                         }
                         if (c - 3 >= 0 &&
@@ -520,8 +538,8 @@ public class DrawGrid {
                                 player == grid[r+2][c-2] &&
                                 player == grid[r+3][c-3])
                         {
-                            winLoc1 = {r,c};
-                            winLoc2 = {r+3,c-3};
+                            winLoc1 = new int[]{r,c};
+                            winLoc2 = new int[]{r+3,c-3};
                             return player;
                         }
                     }
