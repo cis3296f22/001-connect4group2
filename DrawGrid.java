@@ -14,6 +14,8 @@ public class DrawGrid {
     private Player[] players;
     private boolean gameOver = false;
     private boolean gameEnd = false;
+    private int[2] winLoc1;
+    private int[2] winLoc2;
 
     private JPanel container;
     public DrawGrid(Player[] players, LayoutDetails ld, boolean hasAi, DrawMenu menu, AI algorithm) {
@@ -488,22 +490,40 @@ public class DrawGrid {
                             player == grid[r][c+1] && // look right
                             player == grid[r][c+2] &&
                             player == grid[r][c+3])
+                    {
+                        winLoc1 = {r,c};
+                        winLoc2 = {r,c+3};
                         return player;
+                    }
+                        
                     if (r + 3 < HEIGHT) {
                         if (player == grid[r+1][c] && // look up
                                 player == grid[r+2][c] &&
                                 player == grid[r+3][c])
+                        {
+                            winLoc1 = {r,c};
+                            winLoc2 = {r+3,c};
                             return player;
+                        }
+                            
                         if (c + 3 < WIDTH &&
                                 player == grid[r+1][c+1] && // look up & right
                                 player == grid[r+2][c+2] &&
                                 player == grid[r+3][c+3])
+                        {
+                            winLoc1 = {r,c};
+                            winLoc2 = {r+3,c+3};
                             return player;
+                        }
                         if (c - 3 >= 0 &&
                                 player == grid[r+1][c-1] && // look up & left
                                 player == grid[r+2][c-2] &&
                                 player == grid[r+3][c-3])
+                        {
+                            winLoc1 = {r,c};
+                            winLoc2 = {r+3,c-3};
                             return player;
+                        }
                     }
                 }
             }
