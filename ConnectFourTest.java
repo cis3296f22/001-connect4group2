@@ -82,7 +82,7 @@ public class ConnectFourTest {
     }
     @Test
     void shouldMakeRoundButton(){
-        RoundButton rb = new RoundButton(new ImageIcon(getClass().getResource("/res/images/replay.png")));
+        RoundButton rb = new RoundButton(new ImageIcon(getClass().getResource("/res/images/replay.png")),null);
     }
     @Test
     void shouldPlayMusic(){
