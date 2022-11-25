@@ -18,7 +18,7 @@ public class DrawGrid {
     private JPanel container;
     public DrawGrid(Player[] players, LayoutDetails ld, boolean hasAi, DrawMenu menu, AI algorithm) {
         this.players=players;
-        RoundButton rButton = new RoundButton(new ImageIcon(getClass().getResource("/res/images/replay.png")));
+        RoundButton rButton = new RoundButton(new ImageIcon(getClass().getResource("/res/images/replay.png")),null);
         ai = hasAi;
 
         frame = new JFrame("CONNECT 4");
@@ -84,16 +84,7 @@ public class DrawGrid {
         rButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                try{
-                    SoundEffect se = new SoundEffect();
-                    se.playBackGround("/res/sounds/mixkit-unlock-game-notification-253.wav");
-                    Thread t1 = new Thread(se);
-                    t1.start();
-                }catch (Exception ae)
-                {
-                    System.out.println(ae.getMessage());
-                }
+                clickSound("/res/sounds/mixkit-unlock-game-notification-253.wav");
                 win_label.setVisible(false);
                 // remove the board
                 frame.getContentPane().remove(board);
@@ -112,14 +103,7 @@ public class DrawGrid {
             @Override
             public void mouseClicked(MouseEvent e) {
                 //play sound effect
-                try{
-                    SoundEffect se = new SoundEffect();
-                    se.playBackGround("/res/sounds/mixkit-unlock-game-notification-253.wav");
-                    Thread t1 = new Thread(se);
-                    t1.start();
-                }catch (Exception ae) {
-                    System.out.println(ae.getMessage());
-                }
+                clickSound("/res/sounds/mixkit-unlock-game-notification-253.wav");
                 // hide the board
                 frame.setVisible(false);
                 // update frame location
@@ -144,14 +128,7 @@ public class DrawGrid {
             @Override
             public void mouseClicked(MouseEvent e) {
                 //play sound effect
-                try{
-                    SoundEffect se = new SoundEffect();
-                    se.playBackGround("/res/sounds/mixkit-retro-arcade-casino-notification-211.wav");
-                    Thread t1 = new Thread(se);
-                    t1.start();
-                }catch (Exception ae) {
-                    System.out.println(ae.getMessage());
-                }
+                clickSound("/res/sounds/mixkit-retro-arcade-casino-notification-211.wav");
                 menu.closeMenu();
                 frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
             }
@@ -164,10 +141,6 @@ public class DrawGrid {
             @Override
             public void mouseExited(MouseEvent e) {}
         });
-
-
-
-
 
         frame.add(container);
         frame.pack();
@@ -348,18 +321,7 @@ public class DrawGrid {
                 int ySpot = 0;
                 int numPlayers = players.length;
 
-
-                try{
-                    SoundEffect se = new SoundEffect();
-                    se.playBackGround("/res/sounds/mixkit-unlock-game-notification-253.wav");
-                    Thread t1 = new Thread(se);
-                    t1.start();
-                }catch (Exception ae)
-                {
-                    System.out.println(ae.getMessage());
-                }
-
-
+                clickSound("/res/sounds/mixkit-unlock-game-notification-253.wav");
 
                 int temp = turn;
 
@@ -509,27 +471,6 @@ public class DrawGrid {
             return turn;
 
         }
-/*
-        private int generateAIMove(int turn, int numPlayers) {
-
-            int ySpot = 0;
-            Random rand = new Random();
-            int xSpot = rand.nextInt(cols);
-            while ((grid[ySpot][xSpot] == Color.WHITE) && (ySpot < rows - 1)) {
-                ySpot++;
-            }
-            if (grid[ySpot][xSpot] == Color.WHITE) {
-                grid[ySpot][xSpot] = players[turn % numPlayers].getToken();
-            } else if (ySpot - 1 >= 0 && grid[ySpot - 1][xSpot] == Color.WHITE) {
-                grid[ySpot - 1][xSpot] = players[turn % numPlayers].getToken();
-            } else {
-                turn--;
-            }
-
-            return turn;
-
-        }*/
-
 
         //https://codereview.stackexchange.com/questions/127091/java-connect-four-four-in-a-row-detection-algorithms
         private Color checkIfWon()
@@ -569,5 +510,16 @@ public class DrawGrid {
             return EMPTY_SLOT;
         }
 
+    }
+    private void clickSound(String path){
+        try{
+            SoundEffect se = new SoundEffect();
+            se.playBackGround(path);
+            Thread t1 = new Thread(se);
+            t1.start();
+        }catch (Exception ae)
+        {
+            System.out.println(ae.getMessage());
+        }
     }
 }
