@@ -42,7 +42,7 @@ Provide here instructions on how to use your application.
 - No other permanent branches should be created in the main repository, you can create feature branches but they should get merged with the master.
 
 
-### 🔌 How to build
+# 🔌 How to build
  - Clone desired branch (main) or download as zip and extract
  - Specify what branch to use for a more stable release or for cutting edge development.  
  - Use IntelliJ 11
@@ -50,7 +50,7 @@ Provide here instructions on how to use your application.
  - What file and target to compile and run. 
  - What is expected to happen when the app start. 
 
-### 📄 Features
+# 📄 Features
  - 2 player interactive game
  - Supports interactive game sounds
  - Ability to mute and unmute the game sound 
