@@ -1,9 +1,5 @@
 # 🎮 ConnectFour
-<div align=center>
 
-<p>
-  <img src="./images/logo/c4.gif">
-</p>
 An in-progress project aiming to recreate the classic gameplay of connect four on your device.
 
 # 📒 Index
@@ -37,3 +33,12 @@ Follow this project board to know the latest status of the project: [Board Link]
 - Specify additional library to download if needed 
 - What file and target to compile and run. 
 - What is expected to happen when the app start. 
+
+## 📄 Features
+ - 2 player interactive game
+ - Supports interactive game sounds
+ - Ability to mute and unmute the game sound 
+ - Ability to play with computer AI
+ - Ability to customize game theme 
+
+ - Cross platform Linux, Windows, Mac (in development phase)
