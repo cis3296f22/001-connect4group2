@@ -1,4 +1,4 @@
-![c4](https://user-images.githubusercontent.com/97613314/204394441-c8ba361a-cbc4-433f-ae02-2b3a41b8df88.gif)
+![download](https://user-images.githubusercontent.com/97613314/204396160-65c006a9-fb11-48fd-8c8d-ed30b24f9bba.png)
 
 # 🎮 ConnectFour
 
