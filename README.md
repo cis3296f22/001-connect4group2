@@ -1,5 +1,9 @@
 # 🎮 ConnectFour
+<div align=center>
 
+<p>
+  <img src="./images/logo/c4.gif">
+</p>
 An in-progress project aiming to recreate the classic gameplay of connect four on your device.
 
 # 📒 Index
