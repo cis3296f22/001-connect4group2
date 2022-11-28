@@ -41,5 +41,4 @@ Follow this project board to know the latest status of the project: [Board Link]
  - Ability to mute and unmute the game sound 
  - Ability to play with computer AI
  - Ability to customize game theme 
-
- - Cross platform Linux, Windows, Mac (in development phase)
+ - Cross platform Windows, Mac
