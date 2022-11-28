@@ -14,12 +14,14 @@ public class DrawGrid {
     private Player[] players;
     private boolean gameOver = false;
     private boolean gameEnd = false;
+    private boolean isMute;
 
     private JPanel container;
     public DrawGrid(Player[] players, LayoutDetails ld, boolean hasAi, DrawMenu menu, AI algorithm) {
         this.players=players;
         RoundButton rButton = new RoundButton(new ImageIcon(getClass().getResource("/res/images/replay.png")),null);
         ai = hasAi;
+        isMute = menu.getIsMute();
 
         frame = new JFrame("CONNECT 4");
         frame.setBounds(ld.getX(),ld.getY(),ld.getWidth(), ld.getHeight());
@@ -84,7 +86,7 @@ public class DrawGrid {
         rButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                clickSound("/res/sounds/mixkit-unlock-game-notification-253.wav");
+                clickSound("/res/sounds/mixkit-unlock-game-notification-253.wav", menu.getIsMute());
                 win_label.setVisible(false);
                 // remove the board
                 frame.getContentPane().remove(board);
@@ -103,7 +105,7 @@ public class DrawGrid {
             @Override
             public void mouseClicked(MouseEvent e) {
                 //play sound effect
-                clickSound("/res/sounds/mixkit-unlock-game-notification-253.wav");
+                clickSound("/res/sounds/mixkit-unlock-game-notification-253.wav", menu.getIsMute());
                 // hide the board
                 frame.setVisible(false);
                 // update frame location
@@ -128,7 +130,7 @@ public class DrawGrid {
             @Override
             public void mouseClicked(MouseEvent e) {
                 //play sound effect
-                clickSound("/res/sounds/mixkit-retro-arcade-casino-notification-211.wav");
+                clickSound("/res/sounds/mixkit-retro-arcade-casino-notification-211.wav", menu.getIsMute());
                 menu.closeMenu();
                 frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
             }
@@ -147,6 +149,10 @@ public class DrawGrid {
         frame.setVisible(true);
     }
 
+    private boolean getMute(boolean isMute)
+    {
+        return isMute;
+    }
 
     public class MultiDraw extends JPanel  implements MouseListener {
         private int startX = 10;
@@ -321,7 +327,7 @@ public class DrawGrid {
                 int ySpot = 0;
                 int numPlayers = players.length;
 
-                clickSound("/res/sounds/mixkit-unlock-game-notification-253.wav");
+                clickSound("/res/sounds/mixkit-unlock-game-notification-253.wav", getMute(isMute));
 
                 int temp = turn;
 
@@ -511,7 +517,11 @@ public class DrawGrid {
         }
 
     }
-    private void clickSound(String path){
+    private void clickSound(String path, boolean mute){
+
+        if(!mute)
+            return;
+
         try{
             SoundEffect se = new SoundEffect();
             se.playBackGround(path);

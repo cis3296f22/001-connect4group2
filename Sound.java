@@ -73,13 +73,9 @@ public class Sound implements Runnable
 
     public void disposeSound()
     {
-        if(this.clip != null)
-        {
-            this.clip.stop();
-            this.clip.close();
-        }
-        this.clip = null;
-        this.playSong = true;
+
+
+        this.playSong = false;
         this.inputStream = null;
         this.run();
     }
