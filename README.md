@@ -4,9 +4,10 @@ An in-progress project aiming to recreate the classic gameplay of connect four o
 
 # TABLE OF CONTENT
 
-- [ How to run](https://github.com/cis3296f22/001-connect4group2/blob/main/README.md#-how-to-run)
+- How to run
 - How to contribute
 - How to build 
+
 
 # 💻 How to run
 Provide here instructions on how to use your application.   
