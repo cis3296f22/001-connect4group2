@@ -2,8 +2,10 @@
 public class ConnectFour {
 
     public static void main(String[] strings) throws Exception {
+
+
         //Play BGM
-        try {
+      /*  try {
             Sound s = new Sound();
             s.playBackGround("/res/sounds/mixkit-just-chill-16.wav");
             Thread t1 = new Thread(s);
@@ -11,6 +13,10 @@ public class ConnectFour {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
+       */
+
+
 
         int x = 200;
         int y = 200;

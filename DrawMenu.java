@@ -15,6 +15,11 @@ public class DrawMenu {
     private String clickSoundFilePath;
     private Color player_1_token,player_2_token;
 
+    private boolean soundPlaying = true;
+
+    private BackgroundSound background = new BackgroundSound();
+
+
     // x : number of pixels from left of the screen
     // y : number of pixels from top of the screen
     // width & height are the size of the frame
@@ -39,7 +44,7 @@ public class DrawMenu {
         container.setPreferredSize(container.getSize());
         container.setLayout(new BoxLayout(container,BoxLayout.Y_AXIS));
         //---------
-       // frame.setContentPane(background);
+        // frame.setContentPane(background);
 
         createButtons(container,ld);
 
@@ -47,6 +52,7 @@ public class DrawMenu {
         frame.pack();
         frame.setVisible(true);
 
+        background.play();
 
     }
 
@@ -60,7 +66,7 @@ public class DrawMenu {
         selectToken.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                clickSound(clickSoundFilePath);
+                clickSound(clickSoundFilePath, soundPlaying);
                 displayPlayerToken(colors,ld);
                 container.repaint();
                 frame.pack();
@@ -71,7 +77,7 @@ public class DrawMenu {
         pvp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                clickSound(clickSoundFilePath);
+                clickSound(clickSoundFilePath, soundPlaying);
                 createGame(ld, false, ai_algorithm);
             }
 
@@ -82,7 +88,7 @@ public class DrawMenu {
         pvai.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                clickSound(clickSoundFilePath);
+                clickSound(clickSoundFilePath, soundPlaying);
 
                 // remove buttons & blocks
                 container.removeAll();
@@ -93,7 +99,7 @@ public class DrawMenu {
                 AI_easy_button.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        clickSound(clickSoundFilePath);
+                        clickSound(clickSoundFilePath, soundPlaying);
                         ai_algorithm = new AI_easy();
                         createGame(ld, true, ai_algorithm);
                     }
@@ -104,7 +110,7 @@ public class DrawMenu {
                 AI_hard_button.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        clickSound(clickSoundFilePath);
+                        clickSound(clickSoundFilePath, soundPlaying);
                         ai_algorithm = new AI_hard();
                         createGame(ld, true, ai_algorithm);
                     }
@@ -115,7 +121,7 @@ public class DrawMenu {
                 backbt.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        clickSound(clickSoundFilePath);
+                        clickSound(clickSoundFilePath, soundPlaying);
                         // remove buttons & block
                         container.removeAll();
                         // regenerate menu buttons
@@ -148,12 +154,23 @@ public class DrawMenu {
 
             }
         });
+        //
+        JButton sound = new JButton("Mute/Unmute");
+        sound.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //mute sound
+                toggleSound();
+
+            }
+        });
+
         // exit button
         JButton exit = new JButton("EXIT");
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                clickSound("/res/sounds/mixkit-retro-arcade-casino-notification-211.wav");
+                clickSound("/res/sounds/mixkit-retro-arcade-casino-notification-211.wav", soundPlaying);
                 frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
             }
         });
@@ -161,20 +178,24 @@ public class DrawMenu {
         selectToken.setAlignmentX(Component.CENTER_ALIGNMENT);
         pvp.setAlignmentX(Component.CENTER_ALIGNMENT);
         pvai.setAlignmentX(Component.CENTER_ALIGNMENT);
+        sound.setAlignmentX(Component.CENTER_ALIGNMENT);
         exit.setAlignmentX(Component.CENTER_ALIGNMENT);
         selectToken.setMaximumSize(d);
         pvp.setMaximumSize(d);
         pvai.setMaximumSize(d);
+        sound.setMaximumSize(d);
         exit.setMaximumSize(d);
 
         // space between buttons
-        container.add(Box.createRigidArea(new Dimension(0,200)));
+        container.add(Box.createRigidArea(new Dimension(0,150)));
         // space between buttons
         container.add(selectToken);
         container.add(Box.createRigidArea(new Dimension(0,10)));
         container.add(pvp);
         container.add(Box.createRigidArea(new Dimension(0,10)));
         container.add(pvai);
+        container.add(Box.createRigidArea(new Dimension(0,10)));
+        container.add(sound);
         container.add(Box.createRigidArea(new Dimension(0,10)));
         container.add(exit);
 
@@ -236,7 +257,12 @@ public class DrawMenu {
 
 
     public void closeMenu(){frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));}
-    private void clickSound(String path){
+    private void clickSound(String path, boolean mute){
+        if(!mute)
+        {
+            return;
+        }
+
         try{
             SoundEffect se = new SoundEffect();
             se.playBackGround(path);
@@ -247,6 +273,17 @@ public class DrawMenu {
             System.out.println(ae.getMessage());
         }
     }
+
+    private void toggleSound(){
+        soundPlaying = !soundPlaying;
+        if(soundPlaying){
+            background.resume();
+        }
+        else{
+            background.pause();
+        }
+    }
+
     private void displayPlayerToken(int[][] colors, LayoutDetails ld){
         // remove buttons
         container.removeAll();
@@ -262,7 +299,7 @@ public class DrawMenu {
         player_1_bt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                clickSound(clickSoundFilePath);
+                clickSound(clickSoundFilePath, soundPlaying);
                 container.removeAll();
                 // set up available tokens
                 displayTokens(1, colors,ld);
@@ -294,7 +331,7 @@ public class DrawMenu {
         player_2_bt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                clickSound(clickSoundFilePath);
+                clickSound(clickSoundFilePath, soundPlaying);
                 container.removeAll();
                 // set up available tokens
                 displayTokens(2, colors,ld);
@@ -322,7 +359,7 @@ public class DrawMenu {
         resetToken.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                clickSound(clickSoundFilePath);
+                clickSound(clickSoundFilePath, soundPlaying);
                 player_1_token = null;
                 player_2_token = null;
                 // refresh
@@ -337,7 +374,7 @@ public class DrawMenu {
         backToMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                clickSound(clickSoundFilePath);
+                clickSound(clickSoundFilePath, soundPlaying);
                 container.removeAll();
                 createButtons(container,ld);
                 container.repaint();
@@ -351,7 +388,7 @@ public class DrawMenu {
         resetToken.setAlignmentX(Component.CENTER_ALIGNMENT);
         backToMenu.setAlignmentX(Component.CENTER_ALIGNMENT);
         container.add(Box.createRigidArea(new Dimension(0,200)));
-       // container.add(player_1_bt);
+        // container.add(player_1_bt);
         container.add(player_1_container);
         container.add(Box.createRigidArea(new Dimension(0,10)));
         container.add(player_2_container);
@@ -389,7 +426,7 @@ public class DrawMenu {
                     // bug that default repaint() cause unwanted button background color
                     // when click, assign token to player and back to menu(need an indicator that shows token)
                     // find index of the clicked button, set up user token
-                    clickSound(clickSoundFilePath);
+                    clickSound(clickSoundFilePath, soundPlaying);
                     for(int j = 0; j < colors.length; j++){
                         if(e.getSource() == tokens[j]){
                             if(indexOfPlayer == 1){
@@ -415,5 +452,10 @@ public class DrawMenu {
         container.repaint();
         frame.pack();
 
+    }
+
+    boolean getIsMute()
+    {
+        return soundPlaying;
     }
 }
