@@ -3,7 +3,7 @@
 An in-progress project aiming to recreate the classic gameplay of connect four on your device.
 
 # 📒 Index
-- [Descripition](#Descripition)
+- [Descripition]([#Descripition](https://github.com/cis3296f22/001-connect4group2/blob/main/README.md#-descripition))
 - How to run
 - [How to contribute](https://github.com/cis3296f22/001-connect4group2/blob/main/README.md#-how-to-contribute)
 - How to build
