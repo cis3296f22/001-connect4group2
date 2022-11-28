@@ -30,6 +30,9 @@ Provide here instructions on how to use your application.
 
 ![color](https://user-images.githubusercontent.com/97613314/204392598-9b1d6484-d062-4183-a1c6-ed7940d55075.png)
 
+- Game Board
+
+![game board](https://user-images.githubusercontent.com/97613314/204393475-7656652d-a962-459e-b32c-439f08724358.png)
 
 
 # 🔥 How to contribute
