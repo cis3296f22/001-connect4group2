@@ -22,7 +22,7 @@ Provide here instructions on how to use your application.
  - Run the .jar file you downloaded.
  - You will see a box with a connect 4 grid on the top-left.
  
- Menu bar
+-  Menu bar
 ![menu](https://user-images.githubusercontent.com/97613314/204380385-38b25dbb-1335-4844-92da-44063a861680.png)
 
 
