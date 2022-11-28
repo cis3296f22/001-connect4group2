@@ -40,6 +40,12 @@ Provide here instructions on how to use your application.
 ----------------------------------------------------------------------------------------------------
 # 🎮 How to play
 
+- Players must alternate turns, and only one coin can be dropped in each turn. 
+- Players must connect 4 of the same colored coin in a row to win.
+- Only one piece is played at a time.
+- On your turn, drop one of your colored discs into any of the seven slots. 
+- The game ends when there is a 4-in-a-row or a stalemate.
+
 # 🔥 How to contribute
 - Your contributions are always welcome and appreciated.
 - Follow this project board to know the latest status of the project: [Board Link](https://github.com/orgs/cis3296f22/projects/94/views/1)
