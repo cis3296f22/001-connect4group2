@@ -1,5 +1,12 @@
 # 🎮 ConnectFour
+
 An in-progress project aiming to recreate the classic gameplay of connect four on your device.
+
+# TABLE OF CONTENT
+
+- How to run
+- How to contribute
+- How to build 
 
 # 💻 How to run
 Provide here instructions on how to use your application.   
