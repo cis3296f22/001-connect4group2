@@ -7,7 +7,7 @@ Provide here instructions on how to use your application.
 - Download the latest jar from the release section on github  
 - Run the .jar file you downloaded.
 - You will see a box with a connect 4 grid on the top-left.
-![image](https://user-images.githubusercontent.com/97611652/197684036-4c730f5f-db64-40eb-89d1-bbbd60151afe.png)
+![menu](https://user-images.githubusercontent.com/97613314/204380385-38b25dbb-1335-4844-92da-44063a861680.png)
 
 
 # How to contribute
