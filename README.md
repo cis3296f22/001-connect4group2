@@ -34,6 +34,7 @@ Provide here instructions on how to use your application.
 
 ![game board](https://user-images.githubusercontent.com/97613314/204393475-7656652d-a962-459e-b32c-439f08724358.png)
 
+----------------------------------------------------------------------------------------------------
 
 # 🔥 How to contribute
 - Your contributions are always welcome and appreciated.
@@ -49,7 +50,7 @@ Provide here instructions on how to use your application.
  - What file and target to compile and run. 
  - What is expected to happen when the app start. 
 
-## 📄 Features
+### 📄 Features
  - 2 player interactive game
  - Supports interactive game sounds
  - Ability to mute and unmute the game sound 
