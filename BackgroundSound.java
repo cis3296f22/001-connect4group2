@@ -43,11 +43,13 @@ public class BackgroundSound {
             }
         }).start();
     }
-    public void pause(){
+    public void pause(){//stop background music
         running = false;
         clip.stop();
     }
-    public void resume(){
+    public void resume()//play background music
+    {
+
         running = true;
         new Thread(new Runnable(){
             public void run(){
@@ -61,4 +63,4 @@ public class BackgroundSound {
             }
         }).start();
     }
-}
+}//background music
