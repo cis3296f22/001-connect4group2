@@ -1,12 +1,13 @@
 ![download](https://user-images.githubusercontent.com/97613314/204396160-65c006a9-fb11-48fd-8c8d-ed30b24f9bba.png)
 
-# 🎮 ConnectFour
+#  ConnectFour
 
 An in-progress project aiming to recreate the classic gameplay of connect four on your device.
 
 # 📒 Index
  - [Descripition](https://github.com/cis3296f22/001-connect4group2/blob/main/README.md#-descripition)
  - [How to run](https://github.com/cis3296f22/001-connect4group2/blob/main/README.md#-how-to-run)
+ - [How to Play]
  - [How to contribute](https://github.com/cis3296f22/001-connect4group2/blob/main/README.md#-how-to-contribute)
  - [How to build](https://github.com/cis3296f22/001-connect4group2/blob/main/README.md#how-to-build)
  - [Features](https://github.com/cis3296f22/001-connect4group2/blob/main/README.md#-features)
@@ -37,6 +38,7 @@ Provide here instructions on how to use your application.
 ![game board](https://user-images.githubusercontent.com/97613314/204393475-7656652d-a962-459e-b32c-439f08724358.png)
 
 ----------------------------------------------------------------------------------------------------
+# 🎮 How to play
 
 # 🔥 How to contribute
 - Your contributions are always welcome and appreciated.
