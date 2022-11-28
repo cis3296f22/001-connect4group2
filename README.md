@@ -7,6 +7,7 @@ An in-progress project aiming to recreate the classic gameplay of connect four o
 - [How to run](https://github.com/cis3296f22/001-connect4group2/blob/main/README.md#-how-to-run)
 - [How to contribute](https://github.com/cis3296f22/001-connect4group2/blob/main/README.md#-how-to-contribute)
 - [How to build](https://github.com/cis3296f22/001-connect4group2/blob/main/README.md#how-to-build)
+- [Features](https://github.com/cis3296f22/001-connect4group2/blob/main/README.md#-features)
 
 
 # 📄 Descripition
