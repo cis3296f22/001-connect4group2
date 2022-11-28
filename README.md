@@ -1,3 +1,5 @@
+![c4](https://user-images.githubusercontent.com/97613314/204394441-c8ba361a-cbc4-433f-ae02-2b3a41b8df88.gif)
+
 # 🎮 ConnectFour
 
 An in-progress project aiming to recreate the classic gameplay of connect four on your device.
