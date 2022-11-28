@@ -28,7 +28,7 @@ Provide here instructions on how to use your application.
 
 - Player can chose the colore 
 
-![image](https://user-images.githubusercontent.com/97613314/204392494-07bacedf-8509-4a85-9be4-d16d5a24c5ab.png)
+![color](https://user-images.githubusercontent.com/97613314/204392598-9b1d6484-d062-4183-a1c6-ed7940d55075.png)
 
 
 
