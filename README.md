@@ -1,7 +1,7 @@
-# ConnectFour
+# 🎮 ConnectFour
 An in-progress project aiming to recreate the classic gameplay of connect four on your device.
 
-# How to run
+# 💻 How to run
 Provide here instructions on how to use your application.   
 - Download JDK 17 into your computer. https://www.oracle.com/java/technologies/downloads/#java17
 - Download the latest jar from the release section on github  
