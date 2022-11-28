@@ -5,7 +5,7 @@ An in-progress project aiming to recreate the classic gameplay of connect four o
 # 📒 Index
 - [Descripition](#Descripition)
 - How to run
-- [How to contribute](#How to contribute)
+- [How to contribute](#How-to-contribute)
 - How to build
 
 
