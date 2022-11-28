@@ -22,9 +22,14 @@ Provide here instructions on how to use your application.
  - Run the .jar file you downloaded.
  - You will see a box with a connect 4 grid on the top-left.
  
--> Menu bar
+- Menu bar
 
 ![menu](https://user-images.githubusercontent.com/97613314/204380385-38b25dbb-1335-4844-92da-44063a861680.png)
+
+- Player can chose the colore 
+
+![image](https://user-images.githubusercontent.com/97613314/204392494-07bacedf-8509-4a85-9be4-d16d5a24c5ab.png)
+
 
 
 # 🔥 How to contribute
