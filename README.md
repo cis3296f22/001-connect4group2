@@ -25,11 +25,12 @@ Provide here instructions on how to use your application.
 
 
 # 🔥 How to contribute
+- Your contributions are always welcome and appreciated.
 - Follow this project board to know the latest status of the project: [Board Link](https://github.com/orgs/cis3296f22/projects/94/views/1)
-- 
+- No other permanent branches should be created in the main repository, you can create feature branches but they should get merged with the master.
 
 
-### How to build
+### 🔌 How to build
  - Clone desired branch (main) or download as zip and extract
  - Specify what branch to use for a more stable release or for cutting edge development.  
  - Use IntelliJ 11
