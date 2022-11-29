@@ -4,6 +4,9 @@ import java.awt.event.*;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Class that do the main drawing of the first Jframe of the game
+ */
 public class DrawGrid {
     private JFrame frame;
     private boolean moveSuccessful = true;
@@ -17,6 +20,15 @@ public class DrawGrid {
     private boolean isMute;
 
     private JPanel container;
+
+    /**
+     * draws the first frame of the game screen
+     * @param players player array
+     * @param ld gives detailed layouts
+     * @param hasAi boolean for checking AI
+     * @param menu Draw menu class that draws the menu in game
+     * @param algorithm gives easy or hard AI
+     */
     public DrawGrid(Player[] players, LayoutDetails ld, boolean hasAi, DrawMenu menu, AI algorithm) {
         this.players=players;
         RoundButton rButton = new RoundButton(new ImageIcon(getClass().getResource("/res/images/replay.png")),null);
@@ -83,6 +95,9 @@ public class DrawGrid {
 
 
         // button action: reset the game
+        /**
+         * Action Listener for replay button
+         */
         rButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -101,6 +116,10 @@ public class DrawGrid {
             }
         });
         // menu label action: hide current frame & display front page
+
+        /**
+         * action listener for menu
+         */
         menuLabel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -126,6 +145,10 @@ public class DrawGrid {
 
         });
         // exit label action: close current frame & close front page
+
+        /**
+         * exit label action listener
+         */
         exitLabel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -149,11 +172,19 @@ public class DrawGrid {
         frame.setVisible(true);
     }
 
+    /**
+     *
+     * @param isMute
+     * @return return boolean
+     */
     private boolean getMute(boolean isMute)
     {
         return isMute;
     }
 
+    /**
+     * inner class to help draw the grid
+     */
     public class MultiDraw extends JPanel  implements MouseListener {
         private int startX = 10;
         private int startY = 10;
@@ -318,6 +349,10 @@ public class DrawGrid {
 
         }
 
+        /**
+         * mouse pressed event
+         * @param e the event to be processed
+         */
         public void mousePressed(MouseEvent e) {
             // disable mouse event when winner screen pops out
             if(!disablePanelMouseEvent){
@@ -356,6 +391,10 @@ public class DrawGrid {
 
         }
 
+        /**
+         * mouse released event
+         * @param e the event to be processed
+         */
         public void mouseReleased(MouseEvent e) {
             // disable mouse event when winner screen pops out
             if(!disablePanelMouseEvent){
@@ -448,6 +487,10 @@ public class DrawGrid {
 
         }
 
+        /**
+         * mouse entered listener
+         * @param e the event to be processed
+         */
         public void mouseEntered(MouseEvent e) {
 
         }
@@ -460,6 +503,14 @@ public class DrawGrid {
 
         }
 
+        /**
+         * Helper function to generate player move and recolor grid
+         * @param ySpot y spot clicked
+         * @param xSpot x spot clicked
+         * @param turn turns
+         * @param numPlayers player num
+         * @return turns
+         */
         private int generatePlayerMove(int ySpot, int xSpot, int turn, int numPlayers) {
 
             ySpot = 0;
@@ -478,7 +529,13 @@ public class DrawGrid {
 
         }
 
+
         //https://codereview.stackexchange.com/questions/127091/java-connect-four-four-in-a-row-detection-algorithms
+
+        /**
+         * helper function to check win condition
+         * @return color of winner
+         */
         private Color checkIfWon()
         {
             int HEIGHT = rows;
@@ -517,6 +574,12 @@ public class DrawGrid {
         }
 
     }
+
+    /**
+     * function to play sound
+     * @param path URL path name
+     * @param mute boolean to mute
+     */
     private void clickSound(String path, boolean mute){
 //mute SE
         if(!mute)

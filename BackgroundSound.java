@@ -8,10 +8,17 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+/**
+ * plays the background music, each class that needs it just calls this class and this class could play the BGM
+ */
 public class BackgroundSound {
 
     private Clip clip;
     private volatile boolean running,looping;
+
+    /**
+     * loads the actual clip
+     */
     public BackgroundSound(){
         running = false;
         try {
@@ -28,6 +35,9 @@ public class BackgroundSound {
         }
     }
 
+    /**
+     * plays the music
+     */
     public void play() {
         running = true;
         looping = true;
@@ -58,10 +68,18 @@ public class BackgroundSound {
             }
         }).start();
     }
+
+    /**
+     * pauses the music
+     */
     public void pause(){//stop background music
         running = false;
         clip.stop();
     }
+
+    /**
+     * resumes the clip after a pause
+     */
     public void resume()//play background music
     {
 

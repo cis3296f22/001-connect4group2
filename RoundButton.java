@@ -3,8 +3,17 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.util.function.IntConsumer;
 
+/**
+ * This class creates a round button
+ */
 public class RoundButton extends JButton {
     private Color color;
+
+    /**
+     * constructor for creating button
+     * @param img image type
+     * @param color color of button
+     */
     public RoundButton(Icon img, Color color) {
         this.color = color;
        // super(img);
@@ -34,6 +43,11 @@ public class RoundButton extends JButton {
     }
 
     public Color getColor(){return color;}
+
+    /**
+     * paint
+     * @param g the <code>Graphics</code> object to protect
+     */
     protected void paintComponent(Graphics g) {
         // when being clicked
         if (getModel().isArmed()) {
@@ -52,6 +66,12 @@ public class RoundButton extends JButton {
 
     private Shape shape;
 
+    /**
+     * boolean to check
+     * @param x   the <i>x</i> coordinate of the point
+     * @param y   the <i>y</i> coordinate of the point
+     * @return boolean
+     */
     public boolean contains(int x, int y) {
         // If the button has changed size,  make a new shape object.
         if (shape == null || !shape.getBounds().equals(getBounds())) {

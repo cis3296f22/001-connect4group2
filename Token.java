@@ -1,9 +1,16 @@
 import java.awt.*;
 import java.util.Random;
 
+/**
+ * Token object
+ */
 public class Token {
 
     Color colorToken;
+
+    /**
+     * constructor default with white token
+     */
     public Token(){
         colorToken = Color.white;
     }
@@ -18,6 +25,10 @@ public class Token {
         }
     }
 
+    /**
+     * generates random token
+     * @return token color
+     */
     public Color genToken(){
         Random rand = new Random();
         float r = rand.nextFloat();

@@ -1,6 +1,13 @@
-
+/**
+ * connect 4 class that plays the game
+ */
 public class ConnectFour {
 
+    /**
+     * main function that plays the game
+     * @param strings
+     * @throws Exception
+     */
     public static void main(String[] strings) throws Exception {
 
 

@@ -5,13 +5,23 @@
 
 import java.awt.Color;
 
+/**
+ * Player class to define player color
+ */
 public class Player {
     private Color token;
 
+    /**
+     * constructor default
+     */
     public Player() {
         this.token = Color.WHITE;
     }
 
+    /**
+     * constructor with color
+     * @param t
+     */
     public Player(Color t) {
         this.token = t;
     }

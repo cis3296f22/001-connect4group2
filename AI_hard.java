@@ -2,8 +2,27 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+
+/**
+ * AI_hard implements the AI class because it is an AI type.
+ * This is the hard version of the AI
+ */
+
 public class AI_hard implements AI{
+
     private Color c;
+
+    /**
+     * generateAIMove creates the AI move by checking for many
+     * possibilities to make it harder for the player
+     * @param turn number of turns
+     * @param numPlayers number of players
+     * @param cols number of cols of grid
+     * @param rows number of rows of grid
+     * @param players array of players
+     * @param grid the actual board
+     * @return number of turns incremented by 1
+     */
     public int generateAIMove(int turn, int numPlayers, int cols, int rows, Player[] players, Color[][] grid) {
         int[] validCols = findValidCols(grid);
         System.out.println("COLOR OF AI: " + c.toString());
@@ -97,6 +116,17 @@ public class AI_hard implements AI{
         makeMove(move, turn, numPlayers, cols, rows, players, grid);
         return turn;
     }
+
+    /**
+     * helper class to recolor the grid
+     * @param move the type of move
+     * @param turn number of turns
+     * @param numPlayers number of players
+     * @param cols num cols
+     * @param rows num rows
+     * @param players player array
+     * @param grid the board
+     */
     private void makeMove(int move, int turn, int numPlayers, int cols, int rows, Player[] players, Color[][] grid)
     {
         int ySpot = 0;
@@ -113,6 +143,12 @@ public class AI_hard implements AI{
             turn--;
         }
     }
+
+    /**
+     * checks wins
+     * @param grid the board
+     * @return Color of winner or Color.white if there is no winner
+     */
     private Color checkIfWon(Color[][] grid)
     {
         int HEIGHT = grid.length;
@@ -154,6 +190,12 @@ public class AI_hard implements AI{
     public void setColor(Color c) {
         this.c = c;
     }
+
+    /**
+     * helper function find valid columns
+     * @param grid the board
+     * @return the valid column
+     */
     private int[] findValidCols(Color[][] grid) {
         int count = 0;
         //System.out.println("Grid Length: " + grid.length);
@@ -178,6 +220,14 @@ public class AI_hard implements AI{
         return result;
     }
     //should only be called with c as a valid move
+
+    /**
+     * predicts what the grid looks like after one of the moves without actually committing
+     * @param grid the board
+     * @param c the move type
+     * @param checkColor the color of the piece to drop
+     * @return the grid
+     */
     private Color[][] generateGridAfterMove(Color[][] grid, int c, Color checkColor) {
         int last = 0;
         Color[][] result = new Color[grid.length][grid[grid.length-1].length];
