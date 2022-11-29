@@ -391,7 +391,7 @@ public class DrawGrid {
                             }
 
                             // public int generateAIMove(int turn, int numPlayers, int cols, int rows, Player[] players, Color[][] grid) {
-
+                            ai_al.setColor(players[turn%numPlayers].getToken());
                             turn = ai_al.generateAIMove(turn, numPlayers,cols,rows,players,grid);
                             //move failed, then redo
                             while(temp != turn)

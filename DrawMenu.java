@@ -212,7 +212,6 @@ public class DrawMenu {
                 System.out.println("Player[" + (i+1) + "] has been created.");
             }
             System.out.println("plays have no tokens.");
-
             new DrawGrid(players, ld, hasAI, this, algorithm);
             frame.setVisible(false);
         }else{

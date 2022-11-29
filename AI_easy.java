@@ -6,7 +6,6 @@ import java.util.Random;
 // problem, may not work because grid is passed as an instance
 public class AI_easy implements AI{
     public int generateAIMove(int turn, int numPlayers, int cols, int rows, Player[] players, Color[][] grid) {
-
         int ySpot = 0;
         Random rand = new Random();
         int xSpot = rand.nextInt(cols);
@@ -20,8 +19,11 @@ public class AI_easy implements AI{
         } else {
             turn--;
         }
-
         return turn;
+    }
+
+    @Override
+    public void setColor(Color c) {
 
     }
 }
