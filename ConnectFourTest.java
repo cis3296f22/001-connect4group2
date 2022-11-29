@@ -44,6 +44,7 @@ public class ConnectFourTest {
             throw new RuntimeException(e);
         }
     }
+
     @Test
     void testDefaultLayoutInfo(){
         // default layout size and location
@@ -71,10 +72,21 @@ public class ConnectFourTest {
         assertEquals(tokens[1].getColorToken(), Color.WHITE);
     }
     @Test
-    void shouldSetAI(){
-        ai = new AI_hard();
+    void shouldSetAI_easy(){
+
         ai = new AI_easy();
     }
+    @Test
+    void shouldSetAI_hard(){
+        ai = new AI_hard();
+    }/*
+    @Test
+    void shouldGenerateAIMove(){
+        Color[][] grid = new Color[1][1];
+        grid[0][0] = Color.WHITE;
+        ai = new AI_hard();
+        ai.generateAIMove(1,2,7,6,pl,grid);
+    }*/
 
     @Test
     void shouldMakeGrid(){
@@ -90,5 +102,6 @@ public class ConnectFourTest {
         bgm.playBackGround("/res/sounds/mixkit-unlock-game-notification-253.wav");
 
     }
+
 
 }
