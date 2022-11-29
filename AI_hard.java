@@ -1,29 +1,60 @@
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class AI_hard implements AI{
     private Color c;
     public int generateAIMove(int turn, int numPlayers, int cols, int rows, Player[] players, Color[][] grid) {
         int[] validCols = findValidCols(grid);
-        System.out.println("COLOR OF AI: "+ c.toString());
+        System.out.println("COLOR OF AI: " + c.toString());
 
+        ArrayList<Integer> danger_col;
         int move = -1;
 
         //PRIORITY #1: WIN THE GAME
 
-        for(int i = 0; i < validCols.length; i++)
-        {
-            System.out.println("Should print 7 times.");
+        for (int i = 0; i < validCols.length; i++) {
             Color[][] checkGrid = generateGridAfterMove(grid, validCols[i], this.c);
-            if(checkIfWon(checkGrid) == c)
-            {
+            if (checkIfWon(checkGrid) == c) {
                 System.out.println("AI CAN WIN! MAKING THAT MOVE!!");
                 move = i;
                 break;
             }
         }
+        int[] safeCols = new int[validCols.length];
+        int[] colBlackList = new int[cols*2];
+        int colBlackListCounter = 0;
+        if(move == -1)
+        {
 
-        //PRIORITY #2: BLOCK 4 IN A ROW
+            //PRIORITY #2: AVOID ENEMY 4 IN A ROW
+
+            for (int i = 0; i < validCols.length; i++) {
+                Color[][] checkGrid = generateGridAfterMove(grid, validCols[i], players[(turn + 1) % numPlayers].getToken());
+                if (checkIfWon(checkGrid) == players[(turn + 1) % numPlayers].getToken()) {
+                    System.out.println("ENEMY COULD WIN!! MAKING THAT MOVE!!");
+                    move = i;
+                    break;
+                }
+            }
+
+            for (int i = 0; i < validCols.length; i++) {
+                for (int j = 0; j < validCols.length; j++) {
+                    safeCols[j] = validCols[j];
+                }
+                Color[][] checkGrid = generateGridAfterMove(grid, validCols[i], this.c);
+
+                int[] Depth1ValidCols = findValidCols(checkGrid);
+                for (int j = 0; j < Depth1ValidCols.length; j++) {
+
+                    Color[][] checkGridDepth1 = generateGridAfterMove(checkGrid, Depth1ValidCols[j], players[(turn + 1) % numPlayers].getToken());
+                    if (checkIfWon(checkGridDepth1) == players[(turn + 1) % numPlayers].getToken()) {
+                        System.out.println("AI IS IN DANGER! OPPONENT CAN WIN IF I GO IN COLUMN " + (i + 1) + "!");
+                        colBlackList[colBlackListCounter++] = i;
+                    }
+                }
+            }
+        }
 
         //PRIORITY #3: AVOID TILES WHICH WOULD LET THE OTHER PLAYER WIN THE GAME
 
@@ -31,11 +62,36 @@ public class AI_hard implements AI{
 
         //PRIORITY #5: BLOCK 3s
 
-        //CHOOSE RANDOMLY
+        //CHOOSE
+        int count = 0;
+        for (int i = 0; i < safeCols.length; i++) {
+            for (int j = 0; j < colBlackList.length; j++) {
+                if (safeCols[i] == colBlackList[j])
+                {
+                    safeCols[i] = -1;
+                    count++;
+                }
+            }
+        }
+        System.out.println(count+" different columns that I think are dangerous.");
         Random rand = new Random();
         if(move == -1)
         {
-            move = validCols[rand.nextInt(validCols.length)];
+            if(colBlackList.length < 7)
+            {
+                for (int i = 0; i < safeCols.length; i++) {
+                    if (safeCols[i] != -1)
+                    {
+                        move = safeCols[i];
+                    }
+                }
+            }
+
+            //otherwise go anywhere, bot has already lost.
+            if(move == -1)
+            {
+                move = validCols[rand.nextInt(validCols.length)];
+            }
         }
 
         makeMove(move, turn, numPlayers, cols, rows, players, grid);
