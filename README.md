@@ -39,7 +39,7 @@ Provide here instructions on how to use your application.
 
 ----------------------------------------------------------------------------------------------------
 # 🎮 How to play
-
+- The goal of this game is to be the first to get four pieces in a horizontal, vertical, or diagonal line.
 - Players must alternate turns, and only one coin can be dropped in each turn. 
 - Players must connect 4 of the same colored coin in a row to win.
 - Only one piece is played at a time.
