@@ -15,7 +15,7 @@ An in-progress project aiming to recreate the classic gameplay of connect four o
 
 # 📄 Descripition
 
- - Connect Four is a two-player connection game in which the players first choose a color and then take turns dropping one colored into a seven-column, six-row    vertically   suspended griD. The objective of the game is to be the first to form a horizontal, vertical, or diagonal line of four of one's own discs.
+ - Connect Four is an easy and interesting game for two players that only takes a few minutes. Connect Four is a two-player connection game in which the players first choose a color and then take turns dropping one colored into a seven-column, six-row    vertically   suspended griD. The objective of the game is to be the first to form a horizontal, vertical, or diagonal line of four of one's own discs. To win Connect Four, you have to be the first player to get four of your colored checkers in a line either horizontally, vertically, or diagonally
 
 
 # 💻 How to run
