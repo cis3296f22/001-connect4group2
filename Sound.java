@@ -4,6 +4,9 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import java.io.File;
 
+/**
+ * plays background music
+ */
 public class Sound implements Runnable
 {
     private boolean running = true;

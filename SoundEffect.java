@@ -3,12 +3,18 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 
+/**
+ * plays the sound effect
+ */
 public class SoundEffect implements Runnable{
     public SoundEffect()
     {
         this.start();
     }
 
+    /**
+     * starts the thread
+     */
     public void start()
     {
         if(true)
@@ -23,6 +29,9 @@ public class SoundEffect implements Runnable{
     private String url;
     private Clip clip;
 
+    /**
+     * code for running SE
+     */
     @Override
     public void run()
     {
@@ -42,6 +51,10 @@ public class SoundEffect implements Runnable{
             }
     }
 
+    /**
+     * passes the URL to play
+     * @param string URL
+     */
     public void playBackGround(String string) // call to play .wav file
     {
         if(this.clip != null)

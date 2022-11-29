@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
-
+/**
+ * Class that draws the menus for the start screen
+ */
 public class DrawMenu {
 
     private JFrame frame;
@@ -23,7 +25,16 @@ public class DrawMenu {
     // x : number of pixels from left of the screen
     // y : number of pixels from top of the screen
     // width & height are the size of the frame
+
+    /**
+     * constructor
+     */
     public DrawMenu(){}
+
+    /**
+     * constructor with layout details
+     * @param ld layout details
+     */
     public DrawMenu(LayoutDetails ld){
         clickSoundFilePath = "/res/sounds/mixkit-unlock-game-notification-253.wav";
         frame = new JFrame("CONNECT 4");
@@ -57,6 +68,12 @@ public class DrawMenu {
     }
 
     //private void createButtons(JFrame f) {
+
+    /**
+     * creates each button needed
+     * @param container container to draw on
+     * @param ld layout details
+     */
     private void createButtons(JLabel container, LayoutDetails ld) {
         // button size of menu
         Dimension d = new Dimension(130,30);
@@ -200,6 +217,13 @@ public class DrawMenu {
         container.add(exit);
 
     }
+
+    /**
+     * creates the game screen
+     * @param ld layout details
+     * @param hasAI boolean for AI
+     * @param algorithm type of AI
+     */
     private void createGame(LayoutDetails ld, Boolean hasAI, AI algorithm){
         ld.setX(frame.getLocation().x);
         ld.setY(frame.getLocation().y);
@@ -242,6 +266,11 @@ public class DrawMenu {
     }
 
     // move frame to a new location
+
+    /**
+     * refreshing the game screen
+     * @param ld
+     */
     public void refreshFrame(LayoutDetails ld){
         frame.setLocation(ld.getX(),ld.getY());
         frame.setVisible(true);
@@ -255,7 +284,16 @@ public class DrawMenu {
     }
 
 
+    /**
+     * closes the window
+     */
     public void closeMenu(){frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));}
+
+    /**
+     * plays the sound effects
+     * @param path URL path name
+     * @param mute boolean for mute
+     */
     private void clickSound(String path, boolean mute){
         if(!mute)
         {
@@ -273,6 +311,9 @@ public class DrawMenu {
         }
     }
 
+    /**
+     * play/pause the BGM
+     */
     private void toggleSound(){
         soundPlaying = !soundPlaying;
         if(soundPlaying){
@@ -283,6 +324,11 @@ public class DrawMenu {
         }
     }
 
+    /**
+     * Shows the token changing screen to change token colors
+     * @param colors color of the token
+     * @param ld layout details
+     */
     private void displayPlayerToken(int[][] colors, LayoutDetails ld){
         // remove buttons
         container.removeAll();
@@ -397,6 +443,13 @@ public class DrawMenu {
         container.add(backToMenu);
 
     }
+
+    /**
+     * displays the token on screen
+     * @param indexOfPlayer player number
+     * @param colors color
+     * @param ld layout details
+     */
     private void displayTokens(int indexOfPlayer, int[][] colors, LayoutDetails ld){
 
         Dimension tokenD = new Dimension(10,10);
@@ -453,6 +506,10 @@ public class DrawMenu {
 
     }
 
+    /**
+     * getter for mute
+     * @return a boolean
+     */
     boolean getIsMute()
     {
         return soundPlaying;
