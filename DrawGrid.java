@@ -1,6 +1,8 @@
+import javax.crypto.Cipher;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -21,6 +23,9 @@ public class DrawGrid {
 
     private JPanel container;
 
+    private Color[] winning_tiles;
+    private int[] winning_rows;
+    private int[] winning_cols;
     /**
      * draws the first frame of the game screen
      * @param players player array
@@ -30,6 +35,9 @@ public class DrawGrid {
      * @param algorithm gives easy or hard AI
      */
     public DrawGrid(Player[] players, LayoutDetails ld, boolean hasAi, DrawMenu menu, AI algorithm) {
+        winning_tiles = new Color[4];
+        winning_rows = new int[4];
+        winning_cols = new int[4];
         this.players=players;
         RoundButton rButton = new RoundButton(new ImageIcon(getClass().getResource("/res/images/replay.png")),null);
         ai = hasAi;
@@ -102,6 +110,7 @@ public class DrawGrid {
             @Override
             public void actionPerformed(ActionEvent e) {
                 clickSound("/res/sounds/mixkit-unlock-game-notification-253.wav", menu.getIsMute());
+                winning_tiles = new Color[4];
                 win_label.setVisible(false);
                 // remove the board
                 frame.getContentPane().remove(board);
@@ -238,17 +247,18 @@ public class DrawGrid {
                     grid.length*cellWidth + (2*gridAdjust), arcSize, arcSize);
 
             //2) draw grid here
-            for (int row = 0; row < grid.length; row++) {
-                for (int col = 0; col < grid[0].length; col++) {
-                    g2.setColor(grid[row][col]);
-                    g2.fillOval(startX,startY,cellWidth,cellWidth);
-                    startX=startX+cellWidth;
+            if(!gameEnd) {
+                for (int row = 0; row < grid.length; row++) {
+                    for (int col = 0; col < grid[0].length; col++) {
+                        g2.setColor(grid[row][col]);
+                        g2.fillOval(startX, startY, cellWidth, cellWidth);
+                        startX = startX + cellWidth;
+                    }
+                    startX = tempX;
+                    startY += cellWidth;
+
                 }
-                startX=tempX;
-                startY+=cellWidth;
-
             }
-
             //mini interface
             int numPlayers = players.length;
 
@@ -299,6 +309,7 @@ public class DrawGrid {
 
                 int sx = cellWidth * (1 + cols) + startX;
                 int sy = d.height/2;
+
                 g2.setColor(new Color(shading2, shading2, shading));
                 g2.fillRoundRect(sx-adj, sy-adj, boxWidth-(adj-adj2), boxHeight-(adj-adj2), boxArc, boxArc);
                 g2.setColor(Color.BLACK);
@@ -343,6 +354,38 @@ public class DrawGrid {
                 inc+=10;
                 g2.drawString("Press Exit to leave game.", sx, sy+inc);
 
+                for(int i = 0; i < winning_tiles.length; i++)
+                {
+                    System.out.println("Color Before: "+grid[winning_rows[i]][winning_cols[i]].getRed());
+                    int incr = 50;
+                    int tempred = grid[winning_rows[i]][winning_cols[i]].getRed() + incr;
+                    int tempgreen = grid[winning_rows[i]][winning_cols[i]].getGreen() + incr;
+                    int tempblue = grid[winning_rows[i]][winning_cols[i]].getBlue() + incr;
+                    if(tempred > 255)
+                    {
+                        tempred = 255;
+                    }
+                    if(tempgreen > 255)
+                    {
+                        tempgreen = 255;
+                    }
+                    if(tempblue > 255)
+                    {
+                        tempblue = 255;
+                    }
+                    grid[winning_rows[i]][winning_cols[i]] = new Color(tempred,tempgreen,tempblue);
+                    System.out.println("Color after: "+grid[winning_rows[i]][winning_cols[i]].getRed());
+                }
+                for (int row = 0; row < grid.length; row++) {
+                    for (int col = 0; col < grid[row].length; col++) {
+                        g2.setColor(grid[row][col]);
+                        g2.fillOval(startX,startY,cellWidth,cellWidth);
+                        startX=startX+cellWidth;
+                    }
+                    startX=tempX;
+                    startY+=cellWidth;
+
+                }
                 gameEnd = false;
 
             }
@@ -551,22 +594,62 @@ public class DrawGrid {
                             player == grid[r][c+1] && // look right
                             player == grid[r][c+2] &&
                             player == grid[r][c+3])
+                    {
+                        winning_rows[0] = r;
+                        winning_rows[1] = r;
+                        winning_rows[2] = r;
+                        winning_rows[3] = r;
+                        winning_cols[0] = c;
+                        winning_cols[1] = c+1;
+                        winning_cols[2] = c+2;
+                        winning_cols[3] = c+3;
                         return player;
+                    }
                     if (r + 3 < HEIGHT) {
                         if (player == grid[r+1][c] && // look up
                                 player == grid[r+2][c] &&
                                 player == grid[r+3][c])
+                        {
+                            winning_rows[0] = r;
+                            winning_rows[1] = r+1;
+                            winning_rows[2] = r+2;
+                            winning_rows[3] = r+3;
+                            winning_cols[0] = c;
+                            winning_cols[1] = c;
+                            winning_cols[2] = c;
+                            winning_cols[3] = c;
                             return player;
+                        }
                         if (c + 3 < WIDTH &&
                                 player == grid[r+1][c+1] && // look up & right
                                 player == grid[r+2][c+2] &&
                                 player == grid[r+3][c+3])
+                        {
+                            winning_rows[0] = r;
+                            winning_rows[1] = r+1;
+                            winning_rows[2] = r+2;
+                            winning_rows[3] = r+3;
+                            winning_cols[0] = c;
+                            winning_cols[1] = c+1;
+                            winning_cols[2] = c+2;
+                            winning_cols[3] = c+3;
                             return player;
+                        }
                         if (c - 3 >= 0 &&
                                 player == grid[r+1][c-1] && // look up & left
                                 player == grid[r+2][c-2] &&
                                 player == grid[r+3][c-3])
+                        {
+                            winning_rows[0] = r;
+                            winning_rows[1] = r+1;
+                            winning_rows[2] = r+2;
+                            winning_rows[3] = r+3;
+                            winning_cols[0] = c;
+                            winning_cols[1] = c-1;
+                            winning_cols[2] = c-2;
+                            winning_cols[3] = c-3;
                             return player;
+                        }
                     }
                 }
             }
