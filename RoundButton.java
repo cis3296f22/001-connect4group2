@@ -80,4 +80,8 @@ public class RoundButton extends JButton {
         return shape.contains(x, y);
     }
 
+    public void setImg(Icon newImg){
+        setIcon(newImg);
+    }
+
 }

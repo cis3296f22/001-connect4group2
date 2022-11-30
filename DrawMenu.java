@@ -1,8 +1,11 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 /**
  * Class that draws the menus for the start screen
@@ -20,6 +23,7 @@ public class DrawMenu {
     private boolean soundPlaying = true;
 
     private BackgroundSound background = new BackgroundSound();
+    Boolean muteSound = false;
 
 
     // x : number of pixels from left of the screen
@@ -87,6 +91,7 @@ public class DrawMenu {
                 displayPlayerToken(colors,ld);
                 container.repaint();
                 frame.pack();
+
             }
         });
 
@@ -171,13 +176,21 @@ public class DrawMenu {
 
             }
         });
-        //
-        JButton sound = new JButton("Mute/Unmute");
+
+
+        JButton sound = new RoundButton(new ImageIcon(getClass().getResource("/res/images/UnmuteSound.png")),null);
         sound.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //mute sound
                 toggleSound();
+                if(muteSound == false){
+                    muteSound = true;
+                    ((RoundButton) sound).setImg(new ImageIcon(getClass().getResource("/res/images/MuteSound.png")));
+                }else{
+                    muteSound = false;
+                    ((RoundButton) sound).setImg(new ImageIcon(getClass().getResource("/res/images/UnmuteSound.png")));
+                }
 
             }
         });
@@ -200,7 +213,8 @@ public class DrawMenu {
         selectToken.setMaximumSize(d);
         pvp.setMaximumSize(d);
         pvai.setMaximumSize(d);
-        sound.setMaximumSize(d);
+        sound.setMaximumSize(new Dimension(50,50));
+        sound.setBackground(new Color(0.0f,0.0f,0.0f,0.0f));
         exit.setMaximumSize(d);
 
         // space between buttons
@@ -212,9 +226,9 @@ public class DrawMenu {
         container.add(Box.createRigidArea(new Dimension(0,10)));
         container.add(pvai);
         container.add(Box.createRigidArea(new Dimension(0,10)));
-        container.add(sound);
-        container.add(Box.createRigidArea(new Dimension(0,10)));
         container.add(exit);
+        container.add(Box.createRigidArea(new Dimension(0,10)));
+        container.add(sound);
 
     }
 
@@ -514,4 +528,6 @@ public class DrawMenu {
     {
         return soundPlaying;
     }
+
+
 }
